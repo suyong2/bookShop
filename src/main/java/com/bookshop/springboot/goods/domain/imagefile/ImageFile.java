@@ -3,11 +3,13 @@ package com.bookshop.springboot.goods.domain.imagefile;
 import com.bookshop.springboot.goods.domain.goods.Goods;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
+@ToString
 @Entity
 //@Table(name="T_GOODS_DETAIL_IMAGE")
 public class ImageFile {
@@ -15,7 +17,7 @@ public class ImageFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long image_id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="GOODS_ID", nullable = false)
     private Goods goods;
 

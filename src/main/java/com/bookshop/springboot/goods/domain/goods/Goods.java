@@ -3,6 +3,7 @@ package com.bookshop.springboot.goods.domain.goods;
 import com.bookshop.springboot.goods.domain.imagefile.ImageFile;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString(exclude = "imageList")
 @Entity
 //@Table(name="T_SHOPPING_GOODS")
 public class Goods {
