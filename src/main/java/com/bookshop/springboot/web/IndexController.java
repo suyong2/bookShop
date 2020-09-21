@@ -1,6 +1,7 @@
 package com.bookshop.springboot.web;
 
 import com.bookshop.springboot.service.GoodsService;
+import com.bookshop.springboot.web.dto.GoodsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,16 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("goods", goodsService.listGoods());
+        model.addAttribute("hello", "world");
         return "index";
+    }
+
+    @GetMapping("/goods/update/{id}")
+    public String goodsUpdate(@PathVariable Long id, Model model) {
+        GoodsResponseDto dto = goodsService.findById(id);
+        model.addAttribute("good", dto);
+
+        return "goods-update";
     }
 
     @GetMapping("/goods/save")
@@ -24,11 +34,4 @@ public class IndexController {
         return "goods-save";
     }
 
-//    @GetMapping("/goods/update/{id}")
-//    public String goodsUpdate(@PathVariable Long id, Model model) {
-//        PostsResponseDto dto = postsService.findById(id);
-//        model.addAttribute("post", dto);
-//
-//        return "posts-update";
-//    }
 }

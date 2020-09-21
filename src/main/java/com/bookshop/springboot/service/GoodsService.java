@@ -62,18 +62,28 @@ public class GoodsService {
         List<GoodsListResponseDto> goodsList=goodsRepository.selectGoodsList("bestseller", paging).stream()
                 .map(GoodsListResponseDto::new)
                 .collect(Collectors.toList());
+        for (int i=0; i<goodsList.size(); i++){
+            GoodsListResponseDto dto = goodsList.get(i);
+            dto.setIndex(i+1);
+        }
         goodsMap.put("bestseller",goodsList);
 
         goodsList=goodsRepository.selectGoodsList("newbook", paging).stream()
                 .map(GoodsListResponseDto::new)
                 .collect(Collectors.toList());
         goodsMap.put("newbook",goodsList);
-
+        for (int i=0; i<goodsList.size(); i++){
+            GoodsListResponseDto dto = goodsList.get(i);
+            dto.setIndex(i+1);
+        }
         goodsList=goodsRepository.selectGoodsList("steadyseller", paging).stream()
                 .map(GoodsListResponseDto::new)
                 .collect(Collectors.toList());
         goodsMap.put("steadyseller",goodsList);
-
+        for (int i=0; i<goodsList.size(); i++){
+            GoodsListResponseDto dto = goodsList.get(i);
+            dto.setIndex(i+1);
+        }
         return goodsMap;
     }
 

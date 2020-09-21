@@ -14,7 +14,9 @@ public class GoodsListResponseDto {
     private String goodsStatus;
     private LocalDateTime modifiedDate;
     private Integer index;
-
+    public void setIndex(Integer index){
+        this.index = index;
+    }
     public GoodsListResponseDto(Goods entity) {
         this.goodsId = entity.getGoodsId();
         this.goodsTitle = entity.getGoodsTitle();
