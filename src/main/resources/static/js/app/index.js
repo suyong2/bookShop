@@ -1,3 +1,4 @@
+console.log('hello');
 var main = {
     init : function () {
         var _this = this;
@@ -14,20 +15,23 @@ var main = {
         });
     },
     save : function () {
+        console.log('save');
         var data = {
-            title: $('#title').val(),
-            author: $('#author').val(),
-            content: $('#content').val()
+            goodsTitle: $('#goods_title').val(),
+            goodsWriter: $('#goods_writer').val(),
+            goodsPublisher: $('#goods_publisher').val(),
+            goodsPrice: $('#goods_price').val(),
+            goodsStatus: $('#goods_status').val()
         };
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/posts',
+            url: '/api/v1/goods',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert('글이 등록되었습니다.');
+            alert('상품이 등록되었습니다.');
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));
