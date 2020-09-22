@@ -1,9 +1,11 @@
 package com.bookshop.springboot.web.dto;
 
 import com.bookshop.springboot.domain.goods.Goods;
+import lombok.Getter;
 
 import javax.persistence.Column;
 
+@Getter
 public class GoodsResponseDto {
     private Long goodsId;
     private String goodsTitle;

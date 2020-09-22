@@ -6,32 +6,34 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <%
   request.setCharacterEncoding("UTF-8");
-%>  
+%>
 
 <div id="ad_main_banner">
-	<ul class="bjqs">	 	
+	<ul class="bjqs">
 	  <li><img width="775" height="145" src="${contextPath}/resources/image/main_banner01.jpg"></li>
 		<li><img width="775" height="145" src="${contextPath}/resources/image/main_banner02.jpg"></li>
-		<li><img width="775" height="145" src="${contextPath}/resources/image/main_banner03.jpg"></li> 
+		<li><img width="775" height="145" src="${contextPath}/resources/image/main_banner03.jpg"></li>
 	</ul>
 </div>
-<a href="/goods/save" role="button" class="btn btn-primary">상품 등록</a>
 <div class="main_book">
    <c:set  var="goods_count" value="0" />
 	<h3>베스트셀러</h3>
 	<c:forEach var="item" items="${goodsMap.bestseller }">
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
-			<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-			<img class="link"  src="${contextPath}/resources/image/1px.gif"> 
-			</a> 
-				<img width="121" height="154" 
-				     src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+			<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goodsId }">
+			<img class="link"  src="${contextPath}/resources/image/1px.gif">
+			</a>
+			<c:forEach var="image" items="${item.imageList }">
+                <c:if test="${image.fileType eq 'main_image'}">
+                    <h1>${image.fileName}</h1>
+                </c:if>
+            </c:forEach>
 
-			<div class="title">${item.goods_title }</div>
+			<div class="title">${item.goodsTitle }</div>
 			<div class="price">
-		  	   <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
-		          ${goods_price}원
+		  	   <fmt:formatNumber  value="${item.goodsPrice}" type="number" var="goodsPrice" />
+		          ${goodsPrice}원
 			</div>
 		</div>
 	   <c:if test="${goods_count==15   }">
@@ -51,15 +53,14 @@
 	<c:forEach var="item" items="${goodsMap.newbook }" >
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
-		  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-	       <img class="link"  src="${contextPath}/resources/image/1px.gif"> 
+		  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goodsId }">
+	       <img class="link"  src="${contextPath}/resources/image/1px.gif">
 	      </a>
-		 <img width="121" height="154" 
-				src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-		<div class="title">${item.goods_title }</div>
+
+		<div class="title">${item.goodsTitle }</div>
 		<div class="price">
-		    <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
-		       ${goods_price}원
+		    <fmt:formatNumber  value="${item.goodsPrice}" type="number" var="goodsPrice" />
+		       ${goodsPrice}원
 		  </div>
 	</div>
 	 <c:if test="${goods_count==15   }">
@@ -82,15 +83,14 @@
 	<c:forEach var="item" items="${goodsMap.steadyseller }" >
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
-		  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-	       <img class="link"  src="${contextPath}/resources/image/1px.gif"> 
+		  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goodsId }">
+	       <img class="link"  src="${contextPath}/resources/image/1px.gif">
 	      </a>
-		 <img width="121" height="154" 
-				src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-		<div class="title">${item.goods_title }</div>
+
+		<div class="title">${item.goodsTitle }</div>
 		<div class="price">
-		    <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
-		       ${goods_price}원
+		    <fmt:formatNumber  value="${item.goodsPrice}" type="number" var="goodsPrice" />
+		       ${goodsPrice}원
 		  </div>
 	</div>
 	 <c:if test="${goods_count==15   }">
@@ -100,6 +100,5 @@
    </c:if>
 	</c:forEach>
 </div>
-<script src="${contextPath}/resources/js/app/index.js"></script>
-   
-   
+
+
