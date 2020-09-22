@@ -29,12 +29,8 @@ public class GoodsSaveRequestDto {
     }
 
     public Goods toEntity() {
-        return Goods.builder()
-                .goodsTitle(goodsTitle)
-                .goodsWriter(goodsWriter)
-                .goodsPrice(goodsPrice)
-                .goodsPublisher(goodsPublisher)
-                .goodsStatus(goodsStatus)
-                .build();
+        Goods goods = new Goods();
+        goods.update(goodsTitle, goodsWriter, goodsPrice,goodsPublisher, goodsStatus);
+        return goods;
     }
 }

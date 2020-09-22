@@ -1,18 +1,22 @@
 package com.bookshop.springboot.domain.goods;
 
 import com.bookshop.springboot.domain.BaseTimeEntity;
+import com.bookshop.springboot.domain.imagefile.ImageFile;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @Entity
 public class Goods extends BaseTimeEntity {
     @Id
+//    @Column(name="GOODS_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long goodsId;
+    private Long id;
 
     @Column(length = 100)
     private String goodsTitle;
@@ -28,16 +32,19 @@ public class Goods extends BaseTimeEntity {
 
     @Column(length = 50)
     private String goodsStatus;
+//
+//    @OneToMany(mappedBy = "goods", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    private List<ImageFile> imageList = new ArrayList<>();
 
-    @Builder
-    public Goods(String goodsTitle, String goodsWriter, Integer goodsPrice,
-                 String goodsPublisher, String goodsStatus) {
-        this.goodsTitle = goodsTitle;
-        this.goodsWriter = goodsWriter;
-        this.goodsPrice = goodsPrice;
-        this.goodsPublisher= goodsPublisher;
-        this.goodsStatus = goodsStatus;
-    }
+//    @Builder
+//    public Goods(String goodsTitle, String goodsWriter, Integer goodsPrice,
+//                 String goodsPublisher, String goodsStatus) {
+//        this.goodsTitle = goodsTitle;
+//        this.goodsWriter = goodsWriter;
+//        this.goodsPrice = goodsPrice;
+//        this.goodsPublisher= goodsPublisher;
+//        this.goodsStatus = goodsStatus;
+//    }
 
     public void update(String goodsTitle, String goodsWriter, Integer goodsPrice,
                        String goodsPublisher, String goodsStatus) {
@@ -89,8 +96,5 @@ public class Goods extends BaseTimeEntity {
 //
 //    @Column(length = 2000)
 //    private String goodsRecommendation;
-
-    //    @OneToMany(mappedBy = "goods", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private List<ImageFile> imageList = new ArrayList<ImageFile>();
 
 }

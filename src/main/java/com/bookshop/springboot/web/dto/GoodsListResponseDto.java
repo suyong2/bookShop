@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 public class GoodsListResponseDto {
-    private Long goodsId;
+    private Long id;
     private String goodsTitle;
     private String goodsWriter;
     private Integer goodsPrice;
@@ -18,7 +18,7 @@ public class GoodsListResponseDto {
         this.index = index;
     }
     public GoodsListResponseDto(Goods entity) {
-        this.goodsId = entity.getGoodsId();
+        this.id = entity.getId();
         this.goodsTitle = entity.getGoodsTitle();
         this.goodsWriter = entity.getGoodsWriter();
         this.goodsPrice = entity.getGoodsPrice();

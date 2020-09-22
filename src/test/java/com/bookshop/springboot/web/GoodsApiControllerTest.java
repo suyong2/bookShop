@@ -66,12 +66,11 @@ public class GoodsApiControllerTest {
     @Test
     public void Goods_수정된다() throws Exception {
         //given
-        Goods savedGoods= goodsRepository.save(Goods.builder()
-                .goodsTitle("Hello")
-                .goodsWriter("world")
-                .build());
+        Goods goods = new Goods();
+        goods.update("Hello", "world", null,null, null);
+        Goods savedGoods = goodsRepository.save(goods);
 
-        Long updateId = savedGoods.getGoodsId();
+        Long updateId = savedGoods.getId();
         String expectedTitle = "Hello2";
         String expectedWriter = "world2";
 

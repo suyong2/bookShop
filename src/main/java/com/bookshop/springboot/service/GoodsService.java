@@ -23,68 +23,68 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class GoodsService {
-    private final GoodsRepository goodsRepository;
-
-    @Transactional
-    public Long save(GoodsSaveRequestDto requestDto) {
-        return goodsRepository.save(requestDto.toEntity()).getGoodsId();
-    }
-
-    @Transactional
-    public void delete (Long id) {
-        Goods goods = goodsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
-
-        goodsRepository.delete(goods);
-    }
-
-    @Transactional
-    public Long update(Long id, GoodsUpdateRequestDto requestDto) {
-        Goods goods = goodsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
-        goods.update(requestDto.getGoodsTitle(), requestDto.getGoodsWriter(),
-                requestDto.getGoodsPrice(), requestDto.getGoodsPublisher(), requestDto.getGoodsStatus());
-
-        return id;
-    }
-
-    public GoodsResponseDto findById(Long id) {
-        Goods entity = goodsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
-        return new GoodsResponseDto(entity);
-    }
-
-    @Transactional(readOnly = true)
-    public Map<String,List<GoodsListResponseDto>> listGoods() {
-        Map<String,List<GoodsListResponseDto>> goodsMap=
-                new HashMap<>();
-        Pageable paging = PageRequest.of(0, 15);
-        List<GoodsListResponseDto> goodsList=goodsRepository.selectGoodsList("bestseller", paging).stream()
-                .map(GoodsListResponseDto::new)
-                .collect(Collectors.toList());
-        for (int i=0; i<goodsList.size(); i++){
-            GoodsListResponseDto dto = goodsList.get(i);
-            dto.setIndex(i+1);
-        }
-        goodsMap.put("bestseller",goodsList);
-
-        goodsList=goodsRepository.selectGoodsList("newbook", paging).stream()
-                .map(GoodsListResponseDto::new)
-                .collect(Collectors.toList());
-        goodsMap.put("newbook",goodsList);
-        for (int i=0; i<goodsList.size(); i++){
-            GoodsListResponseDto dto = goodsList.get(i);
-            dto.setIndex(i+1);
-        }
-        goodsList=goodsRepository.selectGoodsList("steadyseller", paging).stream()
-                .map(GoodsListResponseDto::new)
-                .collect(Collectors.toList());
-        goodsMap.put("steadyseller",goodsList);
-        for (int i=0; i<goodsList.size(); i++){
-            GoodsListResponseDto dto = goodsList.get(i);
-            dto.setIndex(i+1);
-        }
-        return goodsMap;
-    }
+//    private final GoodsRepository goodsRepository;
+//
+//    @Transactional
+//    public Long save(GoodsSaveRequestDto requestDto) {
+//        return goodsRepository.save(requestDto.toEntity()).getGoodsId();
+//    }
+//
+//    @Transactional
+//    public void delete (Long id) {
+//        Goods goods = goodsRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
+//
+//        goodsRepository.delete(goods);
+//    }
+//
+//    @Transactional
+//    public Long update(Long id, GoodsUpdateRequestDto requestDto) {
+//        Goods goods = goodsRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
+//        goods.update(requestDto.getGoodsTitle(), requestDto.getGoodsWriter(),
+//                requestDto.getGoodsPrice(), requestDto.getGoodsPublisher(), requestDto.getGoodsStatus());
+//
+//        return id;
+//    }
+//
+//    public GoodsResponseDto findById(Long id) {
+//        Goods entity = goodsRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
+//        return new GoodsResponseDto(entity);
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public Map<String,List<GoodsListResponseDto>> listGoods() {
+//        Map<String,List<GoodsListResponseDto>> goodsMap=
+//                new HashMap<>();
+//        Pageable paging = PageRequest.of(0, 15);
+//        List<GoodsListResponseDto> goodsList=goodsRepository.selectGoodsList("bestseller", paging).stream()
+//                .map(GoodsListResponseDto::new)
+//                .collect(Collectors.toList());
+//        for (int i=0; i<goodsList.size(); i++){
+//            GoodsListResponseDto dto = goodsList.get(i);
+//            dto.setIndex(i+1);
+//        }
+//        goodsMap.put("bestseller",goodsList);
+//
+//        goodsList=goodsRepository.selectGoodsList("newbook", paging).stream()
+//                .map(GoodsListResponseDto::new)
+//                .collect(Collectors.toList());
+//        goodsMap.put("newbook",goodsList);
+//        for (int i=0; i<goodsList.size(); i++){
+//            GoodsListResponseDto dto = goodsList.get(i);
+//            dto.setIndex(i+1);
+//        }
+//        goodsList=goodsRepository.selectGoodsList("steadyseller", paging).stream()
+//                .map(GoodsListResponseDto::new)
+//                .collect(Collectors.toList());
+//        goodsMap.put("steadyseller",goodsList);
+//        for (int i=0; i<goodsList.size(); i++){
+//            GoodsListResponseDto dto = goodsList.get(i);
+//            dto.setIndex(i+1);
+//        }
+//        return goodsMap;
+//    }
 
 }

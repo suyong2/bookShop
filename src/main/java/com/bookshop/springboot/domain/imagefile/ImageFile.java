@@ -1,35 +1,45 @@
 package com.bookshop.springboot.domain.imagefile;
 
 import com.bookshop.springboot.domain.BaseTimeEntity;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.bookshop.springboot.domain.goods.Goods;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
-@Setter
-@ToString
+@NoArgsConstructor
 @Entity
-//@Table(name="T_GOODS_DETAIL_IMAGE")
-public class ImageFile extends BaseTimeEntity implements Cloneable{
+public class ImageFile extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long image_id;
-
-//    @OneToOne
-//    @JoinColumn(name="GOODS_ID", nullable = false)
-//    private Goods goods;
-//
-//    public void setGoods(Goods goods){
-//        this.goods = goods;
-//        goods.getImageList().add(this);
-//    }
+    private Long id;
 
     @Column(length = 50)
     private String fileName;
+
     @Column(length = 40)
     private String fileType;
+
     @Column(length = 20)
-    private String reg_id;
+    private String regId;
+
+    @ManyToOne
+    @JoinColumn(name="ID")
+    private Goods goods;
+
+    public void update(String fileName, String fileType, String regId, Goods goods){
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.regId = regId;
+        this.goods = goods;
+    }
+
+//    @Builder
+//    public ImageFile(String fileName, String fileType, String regId, Goods goods){
+//        this.fileName = fileName;
+//        this.fileType = fileType;
+//        this.regId = regId;
+//        this.goods = goods;
+////        this.goods.getImageList().add(this);
+//    }
 }
