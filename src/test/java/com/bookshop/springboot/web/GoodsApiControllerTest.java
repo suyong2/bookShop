@@ -67,10 +67,11 @@ public class GoodsApiControllerTest {
     public void Goods_수정된다() throws Exception {
         //given
         Goods goods = new Goods();
-        goods.update("Hello", "world", null,null, null);
+        goods.update("Hello", "world", null,null, null,
+                null);
         Goods savedGoods = goodsRepository.save(goods);
 
-        Long updateId = savedGoods.getId();
+        Long updateId = savedGoods.getGoodsId();
         String expectedTitle = "Hello2";
         String expectedWriter = "world2";
 

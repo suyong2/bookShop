@@ -17,20 +17,27 @@ public class GoodsSaveRequestDto {
     private Integer goodsPrice;
     private String goodsPublisher;
     private String goodsStatus;
+    private String goodsIsbn;
 
     @Builder
     public GoodsSaveRequestDto(String goodsTitle, String goodsWriter, Integer goodsPrice,
-                               String goodsPublisher, String goodsStatus) {
+                               String goodsPublisher, String goodsStatus, String goodsIsbn) {
         this.goodsTitle = goodsTitle;
         this.goodsWriter = goodsWriter;
         this.goodsPrice = goodsPrice;
         this.goodsPublisher = goodsPublisher;
         this.goodsStatus = goodsStatus;
+        this.goodsIsbn = goodsIsbn;
     }
 
     public Goods toEntity() {
-        Goods goods = new Goods();
-        goods.update(goodsTitle, goodsWriter, goodsPrice,goodsPublisher, goodsStatus);
-        return goods;
+        return Goods.builder()
+                .goodsTitle(goodsTitle)
+                .goodsWriter(goodsWriter)
+                .goodsPrice(goodsPrice)
+                .goodsPublisher(goodsPublisher)
+                .goodsStatus(goodsStatus)
+                .goodsIsbn(goodsIsbn)
+                .build();
     }
 }

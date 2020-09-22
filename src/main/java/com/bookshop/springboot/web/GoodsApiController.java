@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class GoodsApiController {
 //    private final GoodsService goodsService;
-//
+
 //    @DeleteMapping("/api/v1/goods/{id}")
 //    public Long delete(@PathVariable Long id) {
 //        goodsService.delete(id);
 //        return id;
 //    }
-//
+
 //    @PostMapping("/api/v1/goods")
 //    public Long save(@RequestBody GoodsSaveRequestDto requestDto) {
 //        return goodsService.save(requestDto);
 //    }
-//
+
 //    @PutMapping("/api/v1/goods/{id}")
 //    public Long update(@PathVariable Long id, @RequestBody GoodsUpdateRequestDto requestDto) {
 //        return goodsService.update(id, requestDto);

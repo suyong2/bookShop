@@ -14,9 +14,8 @@ import java.util.List;
 @Entity
 public class Goods extends BaseTimeEntity {
     @Id
-//    @Column(name="GOODS_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long goodsId;
 
     @Column(length = 100)
     private String goodsTitle;
@@ -32,27 +31,32 @@ public class Goods extends BaseTimeEntity {
 
     @Column(length = 50)
     private String goodsStatus;
-//
-//    @OneToMany(mappedBy = "goods", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private List<ImageFile> imageList = new ArrayList<>();
 
-//    @Builder
-//    public Goods(String goodsTitle, String goodsWriter, Integer goodsPrice,
-//                 String goodsPublisher, String goodsStatus) {
-//        this.goodsTitle = goodsTitle;
-//        this.goodsWriter = goodsWriter;
-//        this.goodsPrice = goodsPrice;
-//        this.goodsPublisher= goodsPublisher;
-//        this.goodsStatus = goodsStatus;
-//    }
+    @Column(length = 50)
+    private String goodsIsbn;
 
-    public void update(String goodsTitle, String goodsWriter, Integer goodsPrice,
-                       String goodsPublisher, String goodsStatus) {
+    @OneToMany(mappedBy = "goods", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<ImageFile> imageList = new ArrayList<ImageFile>();
+
+    @Builder
+    public Goods(String goodsTitle, String goodsWriter, Integer goodsPrice,
+                 String goodsPublisher, String goodsStatus, String goodsIsbn) {
         this.goodsTitle = goodsTitle;
         this.goodsWriter = goodsWriter;
         this.goodsPrice = goodsPrice;
         this.goodsPublisher= goodsPublisher;
         this.goodsStatus = goodsStatus;
+        this.goodsIsbn = goodsIsbn;
+    }
+
+    public void update(String goodsTitle, String goodsWriter, Integer goodsPrice,
+                       String goodsPublisher, String goodsStatus, String goodsIsbn) {
+        this.goodsTitle = goodsTitle;
+        this.goodsWriter = goodsWriter;
+        this.goodsPrice = goodsPrice;
+        this.goodsPublisher= goodsPublisher;
+        this.goodsStatus = goodsStatus;
+        this.goodsIsbn = goodsIsbn;
     }
 
 //    @Column(length = 50)
@@ -68,9 +72,7 @@ public class Goods extends BaseTimeEntity {
 //
 //    @Column(precision = 5, scale = 0)
 //    private Integer    goodsTotalPage;
-//
-//    @Column(length = 50)
-//    private String goodsIsbn;
+
 //
 //    @Column(length = 10)
 //    private String goodsDeliveryPrice;

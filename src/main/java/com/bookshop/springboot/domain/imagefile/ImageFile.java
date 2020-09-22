@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class ImageFile extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long imageId;
 
     @Column(length = 50)
     private String fileName;
@@ -24,14 +24,18 @@ public class ImageFile extends BaseTimeEntity {
     private String regId;
 
     @ManyToOne
-    @JoinColumn(name="ID")
+    @JoinColumn(name="GOODS_ID", nullable = false)
     private Goods goods;
 
-    public void update(String fileName, String fileType, String regId, Goods goods){
+    public void update(String fileName, String fileType, String regId){
         this.fileName = fileName;
         this.fileType = fileType;
         this.regId = regId;
+    }
+
+    public void setGoods(Goods goods){
         this.goods = goods;
+        goods.getImageList().add(this);
     }
 
 //    @Builder
