@@ -26,7 +26,8 @@
 			</a>
 			<c:forEach var="image" items="${item.imageList }">
                 <c:if test="${image.fileType eq 'main_image'}">
-                    <h1>${image.fileName}</h1>
+                <img width="121" height="154"
+                				     src="${resourcesUriPath}/${image.fileName}">
                 </c:if>
             </c:forEach>
 
