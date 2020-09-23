@@ -2,10 +2,9 @@ package com.bookshop.springboot.service;
 
 import com.bookshop.springboot.domain.goods.Goods;
 import com.bookshop.springboot.domain.goods.GoodsRepository;
-import com.bookshop.springboot.web.dto.GoodsListResponseDto;
-import com.bookshop.springboot.web.dto.GoodsResponseDto;
-import com.bookshop.springboot.web.dto.GoodsSaveRequestDto;
-import com.bookshop.springboot.web.dto.GoodsUpdateRequestDto;
+import com.bookshop.springboot.domain.imagefile.ImageFile;
+import com.bookshop.springboot.domain.imagefile.ImageFileRepository;
+import com.bookshop.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +22,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class GoodsService {
-    private final GoodsRepository goodsRepository;
+//    private final GoodsRepository goodsRepository;
+//    private final ImageFileRepository imagesRepository;
 
 //    @Transactional
 //    public Long save(GoodsSaveRequestDto requestDto) {
@@ -47,33 +47,37 @@ public class GoodsService {
 //
 //        return id;
 //    }
-//
-//    public GoodsResponseDto findById(Long id) {
-//        Goods entity = goodsRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
-//        return new GoodsResponseDto(entity);
+
+//    public Map goodsDetail(Long id) {
+//        Map goodsMap=new HashMap();
+//        Goods entity = goodsRepository.selectGoodsDetail(id);
+//        if (entity == null) {
+//            throw new IllegalArgumentException("해당 상품이 없습니다. id=" + id);
+//        }
+//        goodsMap.put("goodsVO", new GoodsResponseDto(entity));
+//        List<ImagesListResponseDto> imageList = imagesRepository.selectGoodsDetailImage(id)
+//                .stream()
+//                .map(ImagesListResponseDto::new)
+//                .collect(Collectors.toList());
+//        goodsMap.put("imageList", imageList);
+//        return goodsMap;
 //    }
-
-    @Transactional(readOnly = true)
-    public Map<String,List<GoodsListResponseDto>> listGoods() {
-
-        Map<String,List<GoodsListResponseDto>> goodsMap= new HashMap<>();
-        Pageable paging = PageRequest.of(0, 15);
-        String[] kinds = {"bestseller", "newbook", "steadyseller"};
-        List<GoodsListResponseDto> goodsList=null;
-
-        for (int i=0; i<kinds.length; i++){
-            goodsList=goodsRepository.selectGoodsList(kinds[i], paging).stream()
-                    .map(GoodsListResponseDto::new)
-                    .collect(Collectors.toList());
-            for (int j=0; j<goodsList.size(); j++){
-                GoodsListResponseDto dto = goodsList.get(j);
-                dto.setIndex(j+1);
-            }
-            goodsMap.put(kinds[i], goodsList);
-        }
-
-        return goodsMap;
-    }
+//
+//    @Transactional(readOnly = true)
+//    public Map<String,List<GoodsListResponseDto>> listGoods() {
+//
+//        Map<String,List<GoodsListResponseDto>> goodsMap= new HashMap<>();
+//        String[] kinds = {"bestseller", "newbook", "steadyseller"};
+//        List<GoodsListResponseDto> goodsList=null;
+//
+//        for (int i=0; i<kinds.length; i++){
+//            goodsList=goodsRepository.selectGoodsList(kinds[i]).stream()
+//                    .map(GoodsListResponseDto::new)
+//                    .collect(Collectors.toList());
+//            goodsMap.put(kinds[i], goodsList);
+//        }
+//
+//        return goodsMap;
+//    }
 
 }

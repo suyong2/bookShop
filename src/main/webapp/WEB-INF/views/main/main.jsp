@@ -21,15 +21,11 @@
 	<c:forEach var="item" items="${goodsMap.bestseller }">
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
-			<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goodsId }">
+			<a href="/goods/detail/${item.goodsId }">
 			<img class="link"  src="${contextPath}/resources/image/1px.gif">
 			</a>
-			<c:forEach var="image" items="${item.imageList }">
-                <c:if test="${image.fileType eq 'main_image'}">
                 <img width="121" height="154"
-                				     src="${resourcesUriPath}/${image.fileName}">
-                </c:if>
-            </c:forEach>
+                				     src="${resourcesUriPath}/${item.goodsId }/${item.fileName}">
 
 			<div class="title">${item.goodsTitle }</div>
 			<div class="price">

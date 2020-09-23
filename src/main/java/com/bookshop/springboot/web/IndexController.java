@@ -9,33 +9,35 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Map;
+
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
-    private final GoodsService goodsService;
-
-    @Value("${resources.uri_path:}")
-    private String resourcesUriPath;
-
-    @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("goodsMap", goodsService.listGoods());
-        model.addAttribute("resourcesUriPath", resourcesUriPath);
-        return "main";
-    }
-
-//    @GetMapping("/goods/update/{id}")
-//    public String goodsUpdate(@PathVariable Long id, Model model) {
-//        GoodsResponseDto dto = goodsService.findById(id);
-//        model.addAttribute("good", dto);
+//    private final GoodsService goodsService;
 //
-//        return "goods-update";
+//    @Value("${resources.uri_path:}")
+//    private String resourcesUriPath;
+
+//    @GetMapping("/")
+//    public String index(Model model) {
+//        model.addAttribute("goodsMap", goodsService.listGoods());
+//        model.addAttribute("resourcesUriPath", resourcesUriPath);
+//        return "main";
+//    }
+//
+//    @GetMapping("/goods/detail/{id}")
+//    public String goodsDetail(@PathVariable Long id, Model model) {
+//        Map goodsMap= goodsService.goodsDetail(id);
+//        model.addAttribute("goodsMap", goodsMap);
+//
+//        return "goodsDetail";
 //    }
 
-    @GetMapping("/goods/save")
-    public String goodsSave() {
-        return "goods-save";
-    }
+//    @GetMapping("/goods/save")
+//    public String goodsSave() {
+//        return "goods-save";
+//    }
 
 }

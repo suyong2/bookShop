@@ -35,68 +35,101 @@ public class Goods extends BaseTimeEntity {
     @Column(length = 50)
     private String goodsIsbn;
 
+    @Column(precision = 10, scale = 0)
+    private Integer    goodsPoint;
+
+    @Temporal(TemporalType.DATE)
+    private Date goodsPublishedDate;
+
+    @Column(precision = 5, scale = 0)
+    private Integer    goodsTotalPage;
+
+    @Column(precision = 10, scale = 0)
+    private Integer    goodsSalesPrice;
+
+    @Column(length = 2000)
+    private String goodsIntro;
+
+    @Column(length = 2000)
+    private String goodsWriterIntro;
+
+    @Column(columnDefinition = "TEXT")
+    private String goodsContentsOrder;
+
+    @Column(length = 2000)
+    private String goodsPublisherComment;
+
+    @Column(length = 2000)
+    private String goodsRecommendation;
+
+//    @Transient
+//    private String goodsFileName;
+
+
     @OneToMany(mappedBy = "goods", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ImageFile> imageList = new ArrayList<ImageFile>();
 
     @Builder
     public Goods(String goodsTitle, String goodsWriter, Integer goodsPrice,
-                 String goodsPublisher, String goodsStatus, String goodsIsbn) {
+                 String goodsPublisher, String goodsStatus, String goodsIsbn,
+                 Integer goodsPoint, Date goodsPublishedDate, Integer goodsTotalPage,
+                 Integer goodsSalesPrice, String goodsIntro, String goodsWriterIntro,
+                 String goodsContentsOrder, String goodsPublisherComment, String goodsRecommendation) {
         this.goodsTitle = goodsTitle;
         this.goodsWriter = goodsWriter;
         this.goodsPrice = goodsPrice;
         this.goodsPublisher= goodsPublisher;
         this.goodsStatus = goodsStatus;
         this.goodsIsbn = goodsIsbn;
+        this.goodsPoint = goodsPoint;
+        this.goodsPublishedDate = goodsPublishedDate;
+        this.goodsTotalPage= goodsTotalPage;
+        this.goodsSalesPrice=goodsSalesPrice;
+        this.goodsIntro=goodsIntro;
+        this.goodsWriterIntro=goodsWriterIntro;
+        this.goodsContentsOrder=goodsContentsOrder;
+        this.goodsPublisherComment=goodsPublisherComment;
+        this.goodsRecommendation=goodsRecommendation;
     }
 
     public void update(String goodsTitle, String goodsWriter, Integer goodsPrice,
-                       String goodsPublisher, String goodsStatus, String goodsIsbn) {
+                       String goodsPublisher, String goodsStatus, String goodsIsbn,
+                       Integer goodsPoint, Date goodsPublishedDate, Integer goodsTotalPage,
+                       Integer goodsSalesPrice, String goodsIntro, String goodsWriterIntro,
+                       String goodsContentsOrder, String goodsPublisherComment, String goodsRecommendation
+//            ,                       String goodsFileName
+    ) {
         this.goodsTitle = goodsTitle;
         this.goodsWriter = goodsWriter;
         this.goodsPrice = goodsPrice;
         this.goodsPublisher= goodsPublisher;
         this.goodsStatus = goodsStatus;
         this.goodsIsbn = goodsIsbn;
+        this.goodsPoint = goodsPoint;
+        this.goodsPublishedDate = goodsPublishedDate;
+        this.goodsTotalPage= goodsTotalPage;
+        this.goodsSalesPrice=goodsSalesPrice;
+        this.goodsIntro=goodsIntro;
+        this.goodsWriterIntro=goodsWriterIntro;
+        this.goodsContentsOrder=goodsContentsOrder;
+        this.goodsPublisherComment=goodsPublisherComment;
+        this.goodsRecommendation=goodsRecommendation;
+//        this.goodsFileName=goodsFileName;
     }
 
 //    @Column(length = 50)
 //    private String goodsSort;
-//
-//    @Column(precision = 10, scale = 0)
-//    private Integer    goodsSalesPrice;
-//
-//    @Column(precision = 10, scale = 0)
-//    private Integer    goodsPoint;
-//
-//    private Date goodsPublishedDate;
-//
-//    @Column(precision = 5, scale = 0)
-//    private Integer    goodsTotalPage;
 
-//
 //    @Column(length = 10)
 //    private String goodsDeliveryPrice;
 //
 //    private Date goodsDeliveryDate;
-//
-//    @Transient
-//    private String goodsFileName;
-//
 
-//
-//    @Column(length = 2000)
-//    private String goodsWriterIntro;
-//
-//    @Column(columnDefinition = "TEXT")
-//    private String goodsContentsOrder;
-//
-//    @Column(length = 2000)
-//    private String goodsIntro;
-//
-//    @Column(length = 2000)
-//    private String goodsPublisherComment;
-//
-//    @Column(length = 2000)
-//    private String goodsRecommendation;
+
+
+
+
+
+
 
 }
