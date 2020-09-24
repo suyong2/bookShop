@@ -19,7 +19,8 @@ public class TilesConfig implements WebMvcConfigurer {
 
         //타일즈 설정파일이 위치하는 디렉토리+파일명
         configurer.setDefinitions(new String[]{"/WEB-INF/tiles/tiles_main.xml",
-                "/WEB-INF/tiles/tiles_goods.xml"});
+                "/WEB-INF/tiles/tiles_goods.xml",
+                "/WEB-INF/tiles/tiles_admin_goods.xml"});
         configurer.setCheckRefresh(true);
         return configurer;
     }

@@ -136,7 +136,7 @@ function fn_order_each_goods(goodsId,goodsTitle,goodsSalesPrice,fileName){
 	<div id="goods_image">
 		<figure>
 			<img alt="HTML5 &amp; CSS3"
-				src="${resourcesUriPath}/${goods.goodsId }/${goods.fileName}">
+				src="${resourcesUriPath}/${goods.goodsId }/${goods.imageList[0].fileName}">
 		</figure>
 	</div>
 <form   action='${contextPath}/cart/myCartList.do'  >				

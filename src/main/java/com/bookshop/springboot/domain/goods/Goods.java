@@ -61,8 +61,8 @@ public class Goods extends BaseTimeEntity {
 //
 //    @Column(length = 2000)
 //    private String goodsRecommendation;
-    @Column(length = 50)
-    private String fileName;
+//    @Transient
+//    private String fileName;
 
 
     @OneToMany(mappedBy = "goods", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -70,7 +70,7 @@ public class Goods extends BaseTimeEntity {
 
     @Builder
     public Goods(String goodsTitle, String goodsWriter, Integer goodsPrice,
-                 String goodsPublisher, String goodsStatus, String goodsIsbn,  String fileName
+                 String goodsPublisher, String goodsStatus, String goodsIsbn
 //                 ,Integer goodsPoint, Date goodsPublishedDate, Integer goodsTotalPage,
 //                 Integer goodsSalesPrice, String goodsIntro, String goodsWriterIntro,
 //                 String goodsContentsOrder, String goodsPublisherComment, String goodsRecommendation
@@ -81,7 +81,7 @@ public class Goods extends BaseTimeEntity {
         this.goodsPublisher= goodsPublisher;
         this.goodsStatus = goodsStatus;
         this.goodsIsbn = goodsIsbn;
-        this.fileName=fileName;
+//        this.fileName=fileName;
 //        this.goodsPoint = goodsPoint;
 //        this.goodsPublishedDate = goodsPublishedDate;
 //        this.goodsTotalPage= goodsTotalPage;

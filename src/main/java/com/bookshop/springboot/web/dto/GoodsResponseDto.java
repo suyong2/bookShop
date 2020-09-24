@@ -29,7 +29,7 @@ public class GoodsResponseDto {
 //    private String goodsContentsOrder;
 //    private String goodsPublisherComment;
 //    private String goodsRecommendation;
-    private String fileName;
+//    private String fileName;
     private List<ImageFile> imageList;
 
     public GoodsResponseDto(Goods entity){
@@ -49,7 +49,7 @@ public class GoodsResponseDto {
 //        this.goodsContentsOrder=entity.getGoodsContentsOrder();
 //        this.goodsPublisherComment=entity.getGoodsPublisherComment();
 //        this.goodsRecommendation=entity.getGoodsRecommendation();
-        this.fileName=entity.getFileName();
+//        this.fileName=entity.getFileName();
         this.imageList = entity.getImageList();
     }
 }
