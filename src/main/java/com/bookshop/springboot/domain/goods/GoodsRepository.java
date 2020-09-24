@@ -22,6 +22,11 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
             "        and g.goods_id=:goodsId ", nativeQuery = true)
     Goods selectGoodsDetail(@Param("goodsId") Long id);
 
+    @Query(value = "select  * from goods " +
+            "where  created_date  between :beginDate and :endDate " +
+            "order by created_date desc", nativeQuery = true)
+    List<Goods> selectNewGoodsList(@Param("beginDate") String beginDate,
+                                   @Param("endDate") String endDate);
 
 
 }

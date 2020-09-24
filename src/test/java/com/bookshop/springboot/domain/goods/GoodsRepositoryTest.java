@@ -102,8 +102,8 @@ public class GoodsRepositoryTest {
             img.update(expectedFileName+i, null, null);
         }
         goods.update(expectedTitle, expectedWriter, null, null, null,
-                null
-//                , null, null, null, null
+                null, null, null
+//                , null, null
 //                , null, null, null, null
 //                , null, null
         );

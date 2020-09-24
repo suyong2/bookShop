@@ -68,8 +68,8 @@ public class GoodsApiControllerTest {
         //given
         Goods goods = new Goods();
         goods.update("Hello", "world", null,null, null,
-                null
-//                , null, null, null, null,
+                null, null, null
+//                , null, null,
 //                null, null, null, null
 //                , null, null
         );

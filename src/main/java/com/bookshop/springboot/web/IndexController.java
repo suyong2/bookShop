@@ -27,11 +27,6 @@ public class IndexController {
         return "main";
     }
 
-    @GetMapping("/goods/adminGoodsMain")
-    public String goodsSave() {
-        return "admin-goods-main";
-    }
-
     @GetMapping("/goods/detail/{id}")
     public String goodsDetail(@PathVariable Long id, Model model) {
         Map goodsMap= goodsService.goodsDetail(id);
