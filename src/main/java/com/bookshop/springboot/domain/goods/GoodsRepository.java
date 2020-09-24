@@ -9,17 +9,24 @@ import java.util.List;
 
 public interface GoodsRepository extends JpaRepository<Goods, Long> {
 
-    @Query(value = "select g.* from goods g, image_file d " +
-            "        where g.goods_id=d.goods_id " +
-            "        and d.file_type='main_image' " +
-            "        and goods_status=:goodsStatus " +
-            "            order by g.created_date desc  limit 15", nativeQuery = true)
+//    @Query(value = "select g.* from goods g, image_file d " +
+//            "        where g.goods_id=d.goods_id " +
+//            "        and d.file_type='main_image' " +
+//            "        and goods_status=:goodsStatus " +
+//            "            order by g.created_date desc  limit 15", nativeQuery = true)
+//    List<Goods> selectGoodsList(@Param("goodsStatus") String goodsStatus);
+
+    @Query("select g from Goods g, ImageFile d " +
+            "        where g.goodsId=d.goods.goodsId " +
+            "        and d.fileType='main_image' " +
+            "        and g.goodsStatus=:goodsStatus " +
+            "            order by g.createdDate desc ")
     List<Goods> selectGoodsList(@Param("goodsStatus") String goodsStatus);
 
-    @Query(value = "select g.* from goods g, image_file d " +
-            "        where g.goods_id=d.goods_id " +
-            "        and d.file_type='main_image' " +
-            "        and g.goods_id=:goodsId ", nativeQuery = true)
+    @Query("select g from Goods g, ImageFile d " +
+            "        where g.goodsId=d.goods.goodsId " +
+            "        and d.fileType='main_image' " +
+            "        and g.goodsId=:goodsId ")
     Goods selectGoodsDetail(@Param("goodsId") Long id);
 
     @Query(value = "select  * from goods " +
