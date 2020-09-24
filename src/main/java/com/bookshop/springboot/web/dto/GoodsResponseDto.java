@@ -20,16 +20,16 @@ public class GoodsResponseDto {
     private String goodsPublisher;
     private String goodsStatus;
     private String goodsIsbn;
-    private Integer    goodsPoint;
-    private Date goodsPublishedDate;
-    private Integer    goodsTotalPage;
-    private Integer    goodsSalesPrice;
-    private String goodsIntro;
-    private String goodsWriterIntro;
-    private String goodsContentsOrder;
-    private String goodsPublisherComment;
-    private String goodsRecommendation;
-//    private String goodsFileName;
+//    private Integer    goodsPoint;
+//    private Date goodsPublishedDate;
+//    private Integer    goodsTotalPage;
+//    private Integer    goodsSalesPrice;
+//    private String goodsIntro;
+//    private String goodsWriterIntro;
+//    private String goodsContentsOrder;
+//    private String goodsPublisherComment;
+//    private String goodsRecommendation;
+    private String fileName;
     private List<ImageFile> imageList;
 
     public GoodsResponseDto(Goods entity){
@@ -40,16 +40,16 @@ public class GoodsResponseDto {
         this.goodsPublisher= entity.getGoodsPublisher();
         this.goodsStatus = entity.getGoodsStatus();
         this.goodsIsbn = entity.getGoodsIsbn();
-        this.goodsPoint = entity.getGoodsPoint();
-        this.goodsPublishedDate = entity.getGoodsPublishedDate();
-        this.goodsTotalPage= entity.getGoodsTotalPage();
-        this.goodsSalesPrice=entity.getGoodsSalesPrice();
-        this.goodsIntro=entity.getGoodsIntro();
-        this.goodsWriterIntro=entity.getGoodsWriterIntro();
-        this.goodsContentsOrder=entity.getGoodsContentsOrder();
-        this.goodsPublisherComment=entity.getGoodsPublisherComment();
-        this.goodsRecommendation=entity.getGoodsRecommendation();
-//        this.goodsFileName=entity.getGoodsFileName();
+//        this.goodsPoint = entity.getGoodsPoint();
+//        this.goodsPublishedDate = entity.getGoodsPublishedDate();
+//        this.goodsTotalPage= entity.getGoodsTotalPage();
+//        this.goodsSalesPrice=entity.getGoodsSalesPrice();
+//        this.goodsIntro=entity.getGoodsIntro();
+//        this.goodsWriterIntro=entity.getGoodsWriterIntro();
+//        this.goodsContentsOrder=entity.getGoodsContentsOrder();
+//        this.goodsPublisherComment=entity.getGoodsPublisherComment();
+//        this.goodsRecommendation=entity.getGoodsRecommendation();
+        this.fileName=entity.getFileName();
         this.imageList = entity.getImageList();
     }
 }

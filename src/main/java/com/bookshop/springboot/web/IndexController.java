@@ -15,29 +15,30 @@ import java.util.Map;
 @Controller
 public class IndexController {
 
-//    private final GoodsService goodsService;
-//
-//    @Value("${resources.uri_path:}")
-//    private String resourcesUriPath;
+    private final GoodsService goodsService;
 
-//    @GetMapping("/")
-//    public String index(Model model) {
-//        model.addAttribute("goodsMap", goodsService.listGoods());
-//        model.addAttribute("resourcesUriPath", resourcesUriPath);
-//        return "main";
-//    }
-//
-//    @GetMapping("/goods/detail/{id}")
-//    public String goodsDetail(@PathVariable Long id, Model model) {
-//        Map goodsMap= goodsService.goodsDetail(id);
-//        model.addAttribute("goodsMap", goodsMap);
-//
-//        return "goodsDetail";
-//    }
+    @Value("${resources.uri_path:}")
+    private String resourcesUriPath;
 
-//    @GetMapping("/goods/save")
-//    public String goodsSave() {
-//        return "goods-save";
-//    }
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("goodsMap", goodsService.listGoods());
+        model.addAttribute("resourcesUriPath", resourcesUriPath);
+        return "main";
+    }
+
+    @GetMapping("/goods/adminGoodsMain")
+    public String goodsSave() {
+        return "admin-goods-main";
+    }
+
+    @GetMapping("/goods/detail/{id}")
+    public String goodsDetail(@PathVariable Long id, Model model) {
+        Map goodsMap= goodsService.goodsDetail(id);
+        model.addAttribute("goodsMap", goodsMap);
+        model.addAttribute("resourcesUriPath", resourcesUriPath);
+        return "goodsDetail";
+    }
+
 
 }

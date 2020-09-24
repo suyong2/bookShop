@@ -14,12 +14,14 @@ public class GoodsListResponseDto {
     private Long goodsId;
     private String goodsTitle;
     private Integer goodsPrice;
+    private String fileName;
     private List<ImageFile> imageList;
 
     public GoodsListResponseDto(Goods entity) {
         this.goodsId = entity.getGoodsId();
         this.goodsTitle = entity.getGoodsTitle();
         this.goodsPrice = entity.getGoodsPrice();
+        this.fileName = entity.getFileName();
         this.imageList = entity.getImageList();
     }
 }

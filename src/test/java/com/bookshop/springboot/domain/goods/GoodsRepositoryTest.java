@@ -49,7 +49,6 @@ public class GoodsRepositoryTest {
         Goods goods = Goods.builder()
                 .goodsTitle(goodsTitle)
                 .goodsWriter(goodsWriter)
-                .goodsContentsOrder("")
                 .build();
 
         for (int i=0; i<3; i++){
@@ -74,83 +73,83 @@ public class GoodsRepositoryTest {
         }
     }
 
-//    @Test
-//    @Transactional
-//    public void 상품등록_수정하기() {
-//        //given
-//        Goods goods = Goods.builder()
-//                .goodsTitle("Hello")
-//                .goodsWriter("world")
-//                .goodsContentsOrder("")
-//                .build();
-//        for (int i=0; i<3; i++){
-//            ImageFile img = new ImageFile();
-//            img.update("testFile"+i, null, null);
-//            img.setGoods(goods);
-//        }
-//        Goods savedGoods= goodsRepository.save(goods);
-//
-//        Long id = savedGoods.getGoodsId();
-//
-//        String expectedTitle = "Hello2";
-//        String expectedWriter = "world2";
-//        String expectedFileName = "testFile2";
-//
-//        goods = goodsRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
-//        List<ImageFile> imgList = goods.getImageList();
-//        for (int i=0; i<imgList.size(); i++){
-//            ImageFile img = imgList.get(i);
-//            img.update(expectedFileName+i, null, null);
-//        }
-//        goods.update(expectedTitle, expectedWriter, null, null, null,
-//                null, null, null, null, null
+    @Test
+    @Transactional
+    public void 상품등록_수정하기() {
+        //given
+        Goods goods = Goods.builder()
+                .goodsTitle("Hello")
+                .goodsWriter("world")
+                .build();
+        for (int i=0; i<3; i++){
+            ImageFile img = new ImageFile();
+            img.update("testFile"+i, null, null);
+            img.setGoods(goods);
+        }
+        Goods savedGoods= goodsRepository.save(goods);
+
+        Long id = savedGoods.getGoodsId();
+
+        String expectedTitle = "Hello2";
+        String expectedWriter = "world2";
+        String expectedFileName = "testFile2";
+
+        goods = goodsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
+        List<ImageFile> imgList = goods.getImageList();
+        for (int i=0; i<imgList.size(); i++){
+            ImageFile img = imgList.get(i);
+            img.update(expectedFileName+i, null, null);
+        }
+        goods.update(expectedTitle, expectedWriter, null, null, null,
+                null
 //                , null, null, null, null
-//                , null, null);
-//
-//        List<Goods> all = goodsRepository.findAll();
-//        assertThat(all.get(0).getGoodsTitle()).isEqualTo(expectedTitle);
-//        assertThat(all.get(0).getGoodsWriter()).isEqualTo(expectedWriter);
-//        imgList = all.get(0).getImageList();
-//        for (int i=0; i<imgList.size(); i++){
-//            assertThat(imgList.get(i).getFileName()).isEqualTo(expectedFileName+i);
-//        }
-//    }
-//
-//    @Test
-//    public void BaseTimeEntity_등록() {
-//        //given
-//        LocalDateTime now = LocalDateTime.of(2019, 6, 4, 0, 0, 0);
-//        Goods goods = Goods.builder()
-//                .goodsTitle("Hello")
-//                .goodsWriter("world")
-//                .goodsContentsOrder("")
-//                .build();
-//        for (int i=0; i<3; i++){
-//            ImageFile img = new ImageFile();
-//            img.update("testFile"+i, null, null);
-//            img.setGoods(goods);
-//        }
-//        goodsRepository.save(goods);
-//
-//        //when
-//        List<Goods> goodsList = goodsRepository.findAll();
-//
-//        //then
-//        goods = goodsList.get(0);
-//
-//        System.out.println("Goods>>>>>>>>> createDate=" + goods.getCreatedDate() + ", modifiedDate=" + goods.getModifiedDate());
-//
-//        assertThat(goods.getCreatedDate()).isAfter(now);
-//        assertThat(goods.getModifiedDate()).isAfter(now);
-//
-//        List<ImageFile> imgList = goods.getImageList();
-//        for (int i=0; i<imgList.size(); i++){
-//            ImageFile img = imgList.get(i);
-//            System.out.println("ImageFile>>>>>>>>> createDate=" + img.getCreatedDate() + ", modifiedDate=" + img.getModifiedDate());
-//            assertThat(img.getCreatedDate()).isAfter(now);
-//            assertThat(img.getModifiedDate()).isAfter(now);
-//        }
-//
-//    }
+//                , null, null, null, null
+//                , null, null
+        );
+
+        List<Goods> all = goodsRepository.findAll();
+        assertThat(all.get(0).getGoodsTitle()).isEqualTo(expectedTitle);
+        assertThat(all.get(0).getGoodsWriter()).isEqualTo(expectedWriter);
+        imgList = all.get(0).getImageList();
+        for (int i=0; i<imgList.size(); i++){
+            assertThat(imgList.get(i).getFileName()).isEqualTo(expectedFileName+i);
+        }
+    }
+
+    @Test
+    public void BaseTimeEntity_등록() {
+        //given
+        LocalDateTime now = LocalDateTime.of(2019, 6, 4, 0, 0, 0);
+        Goods goods = Goods.builder()
+                .goodsTitle("Hello")
+                .goodsWriter("world")
+                .build();
+        for (int i=0; i<3; i++){
+            ImageFile img = new ImageFile();
+            img.update("testFile"+i, null, null);
+            img.setGoods(goods);
+        }
+        goodsRepository.save(goods);
+
+        //when
+        List<Goods> goodsList = goodsRepository.findAll();
+
+        //then
+        goods = goodsList.get(0);
+
+        System.out.println("Goods>>>>>>>>> createDate=" + goods.getCreatedDate() + ", modifiedDate=" + goods.getModifiedDate());
+
+        assertThat(goods.getCreatedDate()).isAfter(now);
+        assertThat(goods.getModifiedDate()).isAfter(now);
+
+        List<ImageFile> imgList = goods.getImageList();
+        for (int i=0; i<imgList.size(); i++){
+            ImageFile img = imgList.get(i);
+            System.out.println("ImageFile>>>>>>>>> createDate=" + img.getCreatedDate() + ", modifiedDate=" + img.getModifiedDate());
+            assertThat(img.getCreatedDate()).isAfter(now);
+            assertThat(img.getModifiedDate()).isAfter(now);
+        }
+
+    }
 }
