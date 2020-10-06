@@ -27,6 +27,13 @@ public class ImageFile extends BaseTimeEntity {
     @JoinColumn(name="GOODS_ID", nullable = false)
     private Goods goods;
 
+    @Builder
+    public ImageFile(String fileName, String fileType, String regId){
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.regId = regId;
+    }
+
     public void update(String fileName, String fileType, String regId){
         this.fileName = fileName;
         this.fileType = fileType;

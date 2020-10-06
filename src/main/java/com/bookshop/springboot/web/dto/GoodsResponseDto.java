@@ -3,11 +3,13 @@ package com.bookshop.springboot.web.dto;
 import com.bookshop.springboot.domain.goods.Goods;
 import com.bookshop.springboot.domain.imagefile.ImageFile;
 import lombok.Getter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -21,9 +23,10 @@ public class GoodsResponseDto {
     private String goodsStatus;
     private String goodsIsbn;
 //    private Integer    goodsPoint;
-//    private Date goodsPublishedDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate goodsPublishedDate;
 //    private Integer    goodsTotalPage;
-//    private Integer    goodsSalesPrice;
+    private Integer    goodsSalesPrice;
 //    private String goodsIntro;
 //    private String goodsWriterIntro;
 //    private String goodsContentsOrder;
@@ -41,9 +44,9 @@ public class GoodsResponseDto {
         this.goodsStatus = entity.getGoodsStatus();
         this.goodsIsbn = entity.getGoodsIsbn();
 //        this.goodsPoint = entity.getGoodsPoint();
-//        this.goodsPublishedDate = entity.getGoodsPublishedDate();
+        this.goodsPublishedDate = entity.getGoodsPublishedDate();
 //        this.goodsTotalPage= entity.getGoodsTotalPage();
-//        this.goodsSalesPrice=entity.getGoodsSalesPrice();
+        this.goodsSalesPrice=entity.getGoodsSalesPrice();
 //        this.goodsIntro=entity.getGoodsIntro();
 //        this.goodsWriterIntro=entity.getGoodsWriterIntro();
 //        this.goodsContentsOrder=entity.getGoodsContentsOrder();

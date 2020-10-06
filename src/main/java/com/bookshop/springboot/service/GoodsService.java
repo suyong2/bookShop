@@ -23,44 +23,21 @@ import java.util.stream.Collectors;
 @Service
 public class GoodsService {
     private final GoodsRepository goodsRepository;
-    private final ImageFileRepository imagesRepository;
+//    private final ImageFileRepository imagesRepository;
 
-//    @Transactional
-//    public Long save(GoodsSaveRequestDto requestDto) {
-//        return goodsRepository.save(requestDto.toEntity()).getGoodsId();
-//    }
-//
-//    @Transactional
-//    public void delete (Long id) {
-//        Goods goods = goodsRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
-//
-//        goodsRepository.delete(goods);
-//    }
-//
-//    @Transactional
-//    public Long update(Long id, GoodsUpdateRequestDto requestDto) {
-//        Goods goods = goodsRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
-//        goods.update(requestDto.getGoodsTitle(), requestDto.getGoodsWriter(),
-//                requestDto.getGoodsPrice(), requestDto.getGoodsPublisher(), requestDto.getGoodsStatus());
-//
-//        return id;
-//    }
-
-    public Map goodsDetail(Long id) {
-        Map goodsMap=new HashMap();
+    public GoodsResponseDto goodsDetail(Long id) {
         Goods entity = goodsRepository.selectGoodsDetail(id);
         if (entity == null) {
             throw new IllegalArgumentException("해당 상품이 없습니다. id=" + id);
         }
-        goodsMap.put("goodsVO", new GoodsResponseDto(entity));
-        List<ImagesListResponseDto> imageList = imagesRepository.selectGoodsDetailImage(id)
-                .stream()
-                .map(ImagesListResponseDto::new)
-                .collect(Collectors.toList());
-        goodsMap.put("imageList", imageList);
-        return goodsMap;
+        return new GoodsResponseDto(entity);
+    }
+
+    public GoodsResponseDto findById(Long id) {
+        Goods entity = goodsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
+
+        return new GoodsResponseDto(entity);
     }
 
     @Transactional(readOnly = true)
@@ -69,9 +46,9 @@ public class GoodsService {
         Map<String,List<GoodsListResponseDto>> goodsMap= new HashMap<>();
         String[] kinds = {"bestseller", "newbook", "steadyseller"};
         List<GoodsListResponseDto> goodsList=null;
-
+        Pageable paging = PageRequest.of(0, 15);
         for (int i=0; i<kinds.length; i++){
-            goodsList=goodsRepository.selectGoodsList(kinds[i]).stream()
+            goodsList=goodsRepository.selectGoodsList(kinds[i], paging).stream()
                     .map(GoodsListResponseDto::new)
                     .collect(Collectors.toList());
             goodsMap.put(kinds[i], goodsList);

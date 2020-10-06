@@ -8,33 +8,38 @@
 
 <body>
 	<div id="logo">
-	<a href="${contextPath}/main/main.do">
-		<img width="176" height="80" alt="booktopia" src="${contextPath}/resources/image/Booktopia_Logo.jpg">
-		</a>
+	<a href="/">
+		<img width="176" height="80" alt="booktopia" src="/image/Booktopia_Logo.jpg">
+	</a>
 	</div>
 	<div id="head_link">
 		<ul>
 		   <c:choose>
-		     <c:when test="${isLogOn==true and not empty memberInfo }">
-			   <li><a href="${contextPath}/member/logout.do">로그아웃</a></li>
-			   <li><a href="${contextPath}/mypage/myPageMain.do">마이페이지</a></li>
-			   <li><a href="${contextPath}/cart/myCartList.do">장바구니</a></li>
+		     <c:when test="${not empty user }">
+				 <li id="user">
+					 <a href="#" style="color: black; text-decoration: none;">
+						 Logged in as: ${userName}
+					 </a>
+				 </li>
+			   <li><a href="/logout">로그아웃</a></li>
+			   <li><a href="#">마이페이지</a></li>
+			   <li><a href="#">장바구니</a></li>
 			   <li><a href="#">주문배송</a></li>
 			 </c:when>
 			 <c:otherwise>
-			   <li><a href="${contextPath}/member/loginForm.do">로그인</a></li>
-			   <li><a href="${contextPath}/member/memberForm.do">회원가입</a></li> 
+			   <li><a data-toggle="modal" href="#exampleModal">로그인</a></li>
+			   <li><a href="#">회원가입</a></li>
 			 </c:otherwise>
 			</c:choose>
-			   <li><a href="#">고객센터</a></li>
-        <c:if test="${isLogOn==true and memberInfo.member_id =='admin' }">
-	    </c:if>
-            <li class="no_line"><a href="/goods/adminGoodsMain">관리자</a></li>
+			<li><a href="#">고객센터</a></li>
+			<c:if test="${not empty user }">
+				<li class="no_line"><a href="/admin/goods/main">관리자</a></li>
+			</c:if>
 		</ul>
 	</div>
 	<br>
 	<div id="search" >
-		<form name="frmSearch" action="${contextPath}/goods/searchGoods.do" >
+		<form name="frmSearch" action="#" >
 			<input name="searchWord" class="main_input" type="text"  onKeyUp="keywordSearch()"> 
 			<input type="submit" name="search" class="btn1"  value="검 색" >
 		</form>
@@ -42,5 +47,28 @@
    <div id="suggest">
         <div id="suggestList"></div>
    </div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">회원 로그인</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+<!--					<div class="col-md-6">-->
+						<a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+						<a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+<!--					</div>-->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

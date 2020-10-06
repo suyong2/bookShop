@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,8 +53,9 @@ public class GoodsRepositoryTest {
                 .build();
 
         for (int i=0; i<3; i++){
-            ImageFile img = new ImageFile();
-            img.update(fileName+i, null, null);
+            ImageFile img = ImageFile.builder()
+                    .fileName(fileName+i)
+                    .build();
             img.setGoods(goods);
         }
         goodsRepository.save(goods);
@@ -82,8 +84,9 @@ public class GoodsRepositoryTest {
                 .goodsWriter("world")
                 .build();
         for (int i=0; i<3; i++){
-            ImageFile img = new ImageFile();
-            img.update("testFile"+i, null, null);
+            ImageFile img = ImageFile.builder()
+                    .fileName("testFile"+i)
+                    .build();
             img.setGoods(goods);
         }
         Goods savedGoods= goodsRepository.save(goods);
@@ -120,14 +123,15 @@ public class GoodsRepositoryTest {
     @Test
     public void BaseTimeEntity_등록() {
         //given
-        LocalDateTime now = LocalDateTime.of(2019, 6, 4, 0, 0, 0);
+        LocalDate now = LocalDate.of(2019, 6, 4);
         Goods goods = Goods.builder()
                 .goodsTitle("Hello")
                 .goodsWriter("world")
                 .build();
         for (int i=0; i<3; i++){
-            ImageFile img = new ImageFile();
-            img.update("testFile"+i, null, null);
+            ImageFile img = ImageFile.builder()
+                    .fileName("testFile"+i)
+                    .build();
             img.setGoods(goods);
         }
         goodsRepository.save(goods);

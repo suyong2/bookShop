@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bookshop.springboot.web.dto.ImagesSaveRequestDto;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,32 +20,46 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 public abstract class BaseController  {
-	private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
-	
-//	protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
-//		List<ImageFileVO> fileList= new ArrayList<ImageFileVO>();
-//		Iterator<String> fileNames = multipartRequest.getFileNames();
-//		while(fileNames.hasNext()){
-//			ImageFileVO imageFileVO =new ImageFileVO();
-//			String fileName = fileNames.next();
-//			imageFileVO.setFileType(fileName);
-//			MultipartFile mFile = multipartRequest.getFile(fileName);
-//			String originalFileName=mFile.getOriginalFilename();
-//			imageFileVO.setFileName(originalFileName);
-//			fileList.add(imageFileVO);
-//
-//			File file = new File(CURR_IMAGE_REPO_PATH +"\\"+ fileName);
-//			if(mFile.getSize()!=0){ //File Null Check
-//				if(! file.exists()){ //��λ� ������ �������� ���� ���
-//					if(file.getParentFile().mkdirs()){ //��ο� �ش��ϴ� ���丮���� ����
-//							file.createNewFile(); //���� ���� ����
-//					}
-//				}
-//				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+originalFileName)); //�ӽ÷� ����� multipartFile�� ���� ���Ϸ� ����
-//			}
-//		}
-//		return fileList;
-//	}
+	protected static final String CURR_IMAGE_REPO_PATH = "D:\\shopping\\file_repo";
+
+	protected List<ImagesSaveRequestDto> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
+		List<ImagesSaveRequestDto> fileList= new ArrayList<ImagesSaveRequestDto>(); //파일들 정보수집용리스트
+		Iterator<String> fileNames = multipartRequest.getFileNames();// 파일이름들 목록을 가져온다..
+
+		while(fileNames.hasNext()){
+			ImagesSaveRequestDto imageFileVO =new ImagesSaveRequestDto();
+			String fileName = fileNames.next();
+			imageFileVO.setFileType(fileName);
+			MultipartFile mFile = multipartRequest.getFile(fileName);
+
+			String originalFileName=mFile.getOriginalFilename();
+			imageFileVO.setFileName(originalFileName);
+			fileList.add(imageFileVO);
+
+			if(mFile.getSize()!=0){ //File Null Check
+				File file = new File(CURR_IMAGE_REPO_PATH +"\\"+ fileName);
+
+				if (!new File(CURR_IMAGE_REPO_PATH+"\\temp").exists()) {
+					try{
+						new File(CURR_IMAGE_REPO_PATH+"\\temp").mkdir();
+					}
+					catch(Exception e){
+						e.getStackTrace();
+					}
+				}
+				if(! file.exists()){ //경로상에 파일이 존재하지 않을 경우
+					if(file.getParentFile().mkdirs()){ //경로에 해당하는 디렉토리들을 생성
+						file.createNewFile(); //이후 파일 생성
+					}
+				}
+				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+originalFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
+			}
+
+//			String filePath = CURR_IMAGE_REPO_PATH+"\\temp\\" + originalFileName;
+//			mFile.transferTo(new File(filePath));
+		}
+		return fileList;
+	}
 	
 	private void deleteFile(String fileName) {
 		File file =new File(CURR_IMAGE_REPO_PATH+"\\"+fileName);

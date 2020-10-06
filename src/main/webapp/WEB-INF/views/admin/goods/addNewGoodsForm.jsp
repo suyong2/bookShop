@@ -9,32 +9,36 @@
 <head>
 <script type="text/javascript">
   var cnt=0;
-  function fn_addFile(){
+  function fn_addFile(obj){
 	  if(cnt == 0){
 		  $("#d_file").append("<br>"+"<input  type='file' name='main_image' id='f_main_image' />");	  
 	  }else{
 		  $("#d_file").append("<br>"+"<input  type='file' name='detail_image"+cnt+"' />");
 	  }
-  	
+<!--  		$(obj).parents('td').hide();-->
   	cnt++;
   }
-  
-  
+
+
   function fn_add_new_goods(obj){
-		 fileName = $('#f_main_image').val();
-		 if(fileName != null && fileName != undefined){
-			 obj.submit();
-		 }else{
-			 alert("메인 이미지는 반드시 첨부해야 합니다.");
-			 return;
-		 }
-		 
+<!--		 fileName = $('#f_main_image').val();-->
+<!--		 if(fileName != null && fileName != undefined){-->
+<!--			 obj.submit();-->
+<!--		 }else{-->
+<!--			 alert("메인 이미지는 반드시 첨부해야 합니다.");-->
+<!--			 return;-->
+<!--		 }-->
+<!--		var formData = $(obj).serializeObject();-->
+<!--		console.log(formData);-->
+		obj.submit();
 	}
 </script>    
 </head>
 
 <BODY>
-<form action="${contextPath}/admin/goods/addNewGoods.do" method="post"  enctype="multipart/form-data">
+<!--<form action="/api/v1/goods" method="post" enctype="multipart/form-data">-->
+<!--<form action="/admin/goods/post" method="post" enctype="multipart/form-data">-->
+<form id="fileForm" enctype="multipart/form-data">
 		<h1>새상품 등록창</h1>
 <div class="tab_container">
 	<!-- 내용 들어 가는 곳 -->
@@ -53,7 +57,7 @@
 				<table >
 			<tr >
 				<td width=200 >제품분류</td>
-				<td width=500><select name="goods_sort">
+				<td width=500><select name="goodsSort">
 						<option value="컴퓨터와 인터넷" selected>컴퓨터와 인터넷
 						<option value="디지털 기기">디지털 기기
 					</select>
@@ -61,60 +65,60 @@
 			</tr>
 			<tr >
 				<td >제품이름</td>
-				<td><input name="goods_title" type="text" size="40" /></td>
+				<td><input name="goodsTitle" type="text" size="40" /></td>
 			</tr>
 			
 			<tr>
 				<td >저자</td>
-				<td><input name="goods_writer" type="text" size="40" /></td>
+				<td><input name="goodsWriter" type="text" size="40" /></td>
 			</tr>
 			<tr>
 				<td >출판사</td>
-				<td><input name="goods_publisher" type="text" size="40" /></td>
+				<td><input name="goodsPublisher" type="text" size="40" /></td>
 			</tr>
 			<tr>
 				<td >제품정가</td>
-				<td><input name="goods_price" type="text" size="40" /></td>
+				<td><input name="goodsPrice" type="text" size="40" /></td>
 			</tr>
 			
 			<tr>
 				<td >제품판매가격</td>
-				<td><input name="goods_sales_price" type="text" size="40" /></td>
+				<td><input name="goodsSalesPrice" type="text" size="40" /></td>
 			</tr>
 			
 			
 			<tr>
 				<td >제품 구매 포인트</td>
-				<td><input name="goods_point" type="text" size="40" /></td>
+				<td><input name="goodsPoint" type="text" size="40" /></td>
 			</tr>
 			
 			<tr>
 				<td >제품출판일</td>
-				<td><input  name="goods_published_date"  type="date" size="40" /></td>
+				<td><input  name="goodsPublishedDate"  type="date" size="40" /></td>
 			</tr>
 			
 			<tr>
 				<td >제품 총 페이지수</td>
-				<td><input name="goods_total_page" type="text" size="40" /></td>
+				<td><input name="goodsTotalPage" type="text" size="40" /></td>
 			</tr>
 			
 			<tr>
 				<td >ISBN</td>
-				<td><input name="goods_isbn" type="text" size="40" /></td>
+				<td><input name="goodsIsbn" type="text" size="40" /></td>
 			</tr>
 			<tr>
 				<td >제품 배송비</td>
-				<td><input name="goods_delivery_price" type="text" size="40" /></td>
+				<td><input name="goodsDeliveryPrice" type="text" size="40" /></td>
 			</tr>
 			<tr>
 				<td >제품 도착 예정일</td>
-				<td><input name="goods_delivery_date"  type="date" size="40" /></td>
+				<td><input name="goodsDeliveryDate"  type="date" size="40" /></td>
 			</tr>
 			
 			<tr>
 				<td >제품종류</td>
 				<td>
-				<select name="goods_status">
+				<select name="goodsStatus">
 				  <option value="bestseller"  >베스트셀러</option>
 				  <option value="steadyseller" >스테디셀러</option>
 				  <option value="newbook" selected >신간</option>
@@ -136,7 +140,7 @@
 				<table>	
 				 <tr>
 					<td >책목차</td>
-					<td><textarea  rows="100" cols="80" name="goods_contents_order"></textarea></td>
+					<td><textarea  rows="100" cols="80" name="goodsContentsOrder"></textarea></td>
 				</tr>
 				</table>	
 			</div>
@@ -145,7 +149,7 @@
 				 <table>
   				 <tr>
 					<td>제품 저자 소개</td>
-					<td><textarea  rows="100" cols="80" name="goods_writer_intro"></textarea></td>
+					<td><textarea  rows="100" cols="80" name="goodsWriterIntro"></textarea></td>
 			    </tr>
 			   </table>
 			</div>
@@ -154,7 +158,7 @@
 				<table>
 					<tr>
 						<td >제품소개</td>
-						<td><textarea  rows="100" cols="80" name="goods_intro"></textarea></td>
+						<td><textarea  rows="100" cols="80" name="goodsIntro"></textarea></td>
 				    </tr>
 			    </table>
 			</div>
@@ -163,7 +167,7 @@
 				<table>
 				 <tr>
 					<td>출판사 제품 평가</td>
-					<td><textarea  rows="100" cols="80" name="goods_publisher_comment"></textarea></td>
+					<td><textarea  rows="100" cols="80" name="goodsPublisherComment"></textarea></td>
 			    </tr>
 			</table>
 			</div>
@@ -172,7 +176,7 @@
 				 <table>
 					 <tr>
 					   <td>추천사</td>
-					    <td><textarea  rows="100" cols="80" name="goods_recommendation"></textarea></td>
+					    <td><textarea  rows="100" cols="80" name="goodsRecommendation"></textarea></td>
 				    </tr>
 			    </table>
 			</div>
@@ -182,7 +186,7 @@
 					<tr>
 						<td align="right">이미지파일 첨부</td>
 			            
-			            <td  align="left"> <input type="button"  value="파일 추가" onClick="fn_addFile()"/></td>
+			            <td  align="left"> <input type="button"  value="파일 추가" onClick="fn_addFile(this)"/></td>
 			            <td>
 				            <div id="d_file">
 				            </div>
@@ -197,11 +201,13 @@
 	 <table>
 	 <tr>
 			  <td align=center>
-				<!--   <input  type="submit" value="상품 등록하기"> --> 
-				  <input  type="button" value="상품 등록하기"  onClick="fn_add_new_goods(this.form)">
+				<!--   <input  type="submit" value="상품 등록하기"> -->
+<!--				  <input  type="button" value="상품 등록하기"  onClick="fn_add_new_goods(this.form)">-->
+				  <a href="/" role="button" class="btn btn-secondary">취소</a>
+				  <button type="button" class="btn btn-primary" id="btn-save">등록</button>
 			  </td>
 			</tr>
 	 </table>
 </center>	 
 </div>
-</form>	 
+</form>

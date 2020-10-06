@@ -10,9 +10,9 @@
 
 <div id="ad_main_banner">
 	<ul class="bjqs">
-	  <li><img width="775" height="145" src="${contextPath}/resources/image/main_banner01.jpg"></li>
-		<li><img width="775" height="145" src="${contextPath}/resources/image/main_banner02.jpg"></li>
-		<li><img width="775" height="145" src="${contextPath}/resources/image/main_banner03.jpg"></li>
+	  <li><img width="775" height="145" src="/image/main_banner01.jpg"></li>
+		<li><img width="775" height="145" src="/image/main_banner02.jpg"></li>
+		<li><img width="775" height="145" src="/image/main_banner03.jpg"></li>
 	</ul>
 </div>
 <div class="main_book">
@@ -22,7 +22,7 @@
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
 			<a href="/goods/detail/${item.goodsId }">
-			<img class="link"  src="${contextPath}/resources/image/1px.gif">
+			<img class="link"  src="/image/1px.gif">
 			</a>
                 <img width="121" height="154"
                 				     src="${resourcesUriPath}/${item.goodsId }/${item.imageList[0].fileName}">
@@ -42,7 +42,7 @@
 </div>
 <div class="clear"></div>
 <div id="ad_sub_banner">
-	<img width="770" height="117" src="${contextPath}/resources/image/sub_banner01.jpg">
+	<img width="770" height="117" src="/image/sub_banner01.jpg">
 </div>
 <div class="main_book" >
 <c:set  var="goods_count" value="0" />
@@ -51,7 +51,7 @@
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
 		  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goodsId }">
-	       <img class="link"  src="${contextPath}/resources/image/1px.gif">
+	       <img class="link"  src="/image/1px.gif">
 	      </a>
 
 		<div class="title">${item.goodsTitle }</div>
@@ -70,7 +70,7 @@
 
 <div class="clear"></div>
 <div id="ad_sub_banner">
-	<img width="770" height="117" src="${contextPath}/resources/image/sub_banner02.jpg">
+	<img width="770" height="117" src="/image/sub_banner02.jpg">
 </div>
 
 
@@ -81,7 +81,7 @@
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
 		  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goodsId }">
-	       <img class="link"  src="${contextPath}/resources/image/1px.gif">
+	       <img class="link"  src="/image/1px.gif">
 	      </a>
 
 		<div class="title">${item.goodsTitle }</div>

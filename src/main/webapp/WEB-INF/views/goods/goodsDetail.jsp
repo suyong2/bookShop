@@ -5,8 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<c:set var="goods"  value="${goodsMap.goodsVO}"  />
-<c:set var="imageList"  value="${goodsMap.imageList }"  />
+<c:set var="imageList"  value="${goods.imageList }"  />
  <%
      //치환 변수 선언합니다.
       //pageContext.setAttribute("crcn", "\r\n"); //개행문자
@@ -139,7 +138,7 @@ function fn_order_each_goods(goodsId,goodsTitle,goodsSalesPrice,fileName){
 				src="${resourcesUriPath}/${goods.goodsId }/${goods.imageList[0].fileName}">
 		</figure>
 	</div>
-<form   action='${contextPath}/cart/myCartList.do'  >				
+<form   action='#'  >
 		<input  type="submit" value="장바구니 보기">
 </form>			
 <input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>

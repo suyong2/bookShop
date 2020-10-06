@@ -12,16 +12,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<link href="${contextPath}/resources/css/main.css" rel="stylesheet" type="text/css" media="screen">
-<link href="${contextPath}/resources/css/basic-jquery-slider.css" rel="stylesheet" type="text/css" media="screen">
-<link href="${contextPath}/resources/css/mobile.css" rel="stylesheet" type="text/css">
-<script src="${contextPath}/resources/jquery/jquery-1.6.2.min.js" type="text/javascript"></script>
-<script src="${contextPath}/resources/jquery/jquery.easing.1.3.js" type="text/javascript"></script>
-<script src="${contextPath}/resources/jquery/stickysidebar.jquery.js" type="text/javascript"></script>
-<script src="${contextPath}/resources/jquery/basic-jquery-slider.js" type="text/javascript"></script>
-<script src="${contextPath}/resources/jquery/tabs.js" type="text/javascript"></script>
-<script src="${contextPath}/resources/jquery/carousel.js" type="text/javascript"></script>
+<link href="/css/main.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/css/basic-jquery-slider.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/css/mobile.css" rel="stylesheet" type="text/css">
+<!--<script src="/js/jquery/jquery-1.6.2.min.js" type="text/javascript"></script>-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/js/jquery/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="/js/jquery/stickysidebar.jquery.js" type="text/javascript"></script>
+<!--<script type="text/javascript" src="/js/jquery/sticky-sidebar.js"></script>-->
+<script src="/js/jquery/basic-jquery-slider.js" type="text/javascript"></script>
+<script src="/js/jquery/tabs.js" type="text/javascript"></script>
+<script src="/js/jquery/carousel.js" type="text/javascript"></script>
+<script>
+	// 슬라이드
+	$(document).ready(function() {
+		$('#ad_main_banner').bjqs({
+			'width' : 775,
+			'height' : 145,
+			'showMarkers' : true,
+			'showControls' : false,
+			'centerMarkers' : false
+		});
+	});
+		// 스티키
+<!--	$(function() {-->
+<!--		$("#sticky").stickySidebar({-->
+<!--			timer : 100,-->
+<!--			easing : "easeInBounce"-->
+<!--		});-->
+<!--	});-->
 
+</script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<title><tiles:insertAttribute name="title" /></title>
 	
 </head>
@@ -44,7 +67,8 @@
         	</footer>
 		</div>
 		 <tiles:insertAttribute name="quickMenu" />
-    </div>        	
-</body>      
+    </div>
+</body>
+
         
         

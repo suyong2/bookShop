@@ -8,8 +8,11 @@ import java.util.List;
 
 public interface ImageFileRepository extends JpaRepository<ImageFile, Long> {
 
-    @Query(value = "select * from image_file " +
-            "        where file_type!='main_image' " +
-            "        and goods_id=:goodsId ", nativeQuery = true)
+    @Query("select i from ImageFile i " +
+            "        where i.fileType!='main_image' " +
+            "        and i.goods.goodsId=:goodsId ")
     List<ImageFile> selectGoodsDetailImage(@Param("goodsId") Long id);
+
+    @Query("select i from ImageFile i where i.goods.goodsId=:goodsId order by i.imageId asc")
+    List<ImageFile> getImages(@Param("goodsId") Long id);
 }

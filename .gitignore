@@ -2,5 +2,5 @@
 .gradle
 .idea
 build
-shopping
-shopping/file_repo
+application-oauth.properties
+bin

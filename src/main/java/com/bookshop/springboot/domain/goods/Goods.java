@@ -5,12 +5,14 @@ import com.bookshop.springboot.domain.imagefile.ImageFile;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Getter
+@ToString
 @NoArgsConstructor
 @Entity
 public class Goods extends BaseTimeEntity {
@@ -36,8 +38,7 @@ public class Goods extends BaseTimeEntity {
     @Column(length = 50)
     private String goodsIsbn;
 
-    @Temporal(TemporalType.DATE)
-    private Date goodsPublishedDate;
+    private LocalDate goodsPublishedDate;
 
     @Column(precision = 10, scale = 0)
     private Integer    goodsSalesPrice;
@@ -45,12 +46,9 @@ public class Goods extends BaseTimeEntity {
 //    @Column(precision = 10, scale = 0)
 //    private Integer    goodsPoint;
 //
-
-//
 //    @Column(precision = 5, scale = 0)
 //    private Integer    goodsTotalPage;
 //
-
 //    @Column(length = 2000)
 //    private String goodsIntro;
 //
@@ -75,7 +73,7 @@ public class Goods extends BaseTimeEntity {
     @Builder
     public Goods(String goodsTitle, String goodsWriter, Integer goodsPrice,
                  String goodsPublisher, String goodsStatus, String goodsIsbn,
-                 Date goodsPublishedDate, Integer goodsSalesPrice
+                 LocalDate goodsPublishedDate, Integer goodsSalesPrice
 //                 ,Integer goodsPoint, Integer goodsTotalPage,
 //                 String goodsIntro, String goodsWriterIntro,
 //                 String goodsContentsOrder, String goodsPublisherComment, String goodsRecommendation
@@ -86,11 +84,11 @@ public class Goods extends BaseTimeEntity {
         this.goodsPublisher= goodsPublisher;
         this.goodsStatus = goodsStatus;
         this.goodsIsbn = goodsIsbn;
+        this.goodsPublishedDate = goodsPublishedDate;
+        this.goodsSalesPrice=goodsSalesPrice;
 //        this.fileName=fileName;
 //        this.goodsPoint = goodsPoint;
-        this.goodsPublishedDate = goodsPublishedDate;
 //        this.goodsTotalPage= goodsTotalPage;
-        this.goodsSalesPrice=goodsSalesPrice;
 //        this.goodsIntro=goodsIntro;
 //        this.goodsWriterIntro=goodsWriterIntro;
 //        this.goodsContentsOrder=goodsContentsOrder;
@@ -100,7 +98,7 @@ public class Goods extends BaseTimeEntity {
 
     public void update(String goodsTitle, String goodsWriter, Integer goodsPrice,
                        String goodsPublisher, String goodsStatus, String goodsIsbn,
-                       Date goodsPublishedDate, Integer goodsSalesPrice
+                       LocalDate goodsPublishedDate, Integer goodsSalesPrice
 //            ,Integer goodsPoint, Integer goodsTotalPage,
 //                       String goodsIntro, String goodsWriterIntro,
 //                       String goodsContentsOrder, String goodsPublisherComment, String goodsRecommendation
@@ -111,10 +109,10 @@ public class Goods extends BaseTimeEntity {
         this.goodsPublisher= goodsPublisher;
         this.goodsStatus = goodsStatus;
         this.goodsIsbn = goodsIsbn;
-//        this.goodsPoint = goodsPoint;
         this.goodsPublishedDate = goodsPublishedDate;
-//        this.goodsTotalPage= goodsTotalPage;
         this.goodsSalesPrice=goodsSalesPrice;
+//        this.goodsPoint = goodsPoint;
+//        this.goodsTotalPage= goodsTotalPage;
 //        this.goodsIntro=goodsIntro;
 //        this.goodsWriterIntro=goodsWriterIntro;
 //        this.goodsContentsOrder=goodsContentsOrder;

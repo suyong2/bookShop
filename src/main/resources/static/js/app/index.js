@@ -1,4 +1,5 @@
 console.log('hello');
+
 var main = {
     init : function () {
         var _this = this;
@@ -16,20 +17,16 @@ var main = {
     },
     save : function () {
         console.log('save');
-        var data = {
-            goodsTitle: $('#goods_title').val(),
-            goodsWriter: $('#goods_writer').val(),
-            goodsPublisher: $('#goods_publisher').val(),
-            goodsPrice: $('#goods_price').val(),
-            goodsStatus: $('#goods_status').val()
-        };
+        var formData = new FormData($('#fileForm')[0]);
 
         $.ajax({
             type: 'POST',
+            enctype: 'multipart/form-data', // 필수
             url: '/api/v1/goods',
-            dataType: 'json',
-            contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(data)
+            data: formData, // 필수
+            processData: false, // 필수
+            contentType: false, // 필수
+            cache: false,
         }).done(function() {
             alert('상품이 등록되었습니다.');
             window.location.href = '/';
@@ -38,21 +35,19 @@ var main = {
         });
     },
     update : function () {
-        var data = {
-            title: $('#title').val(),
-            content: $('#content').val()
-        };
+        var formData = new FormData($('#fileForm')[0]);
 
         var id = $('#id').val();
-
         $.ajax({
             type: 'PUT',
-            url: '/api/v1/posts/'+id,
-            dataType: 'json',
-            contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(data)
+            enctype: 'multipart/form-data', // 필수
+            url: '/api/v1/goods/'+id,
+            data: formData, // 필수
+            processData: false, // 필수
+            contentType: false, // 필수
+            cache: false,
         }).done(function() {
-            alert('글이 수정되었습니다.');
+            alert('상품이 수정되었습니다.');
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -64,11 +59,11 @@ var main = {
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/v1/posts/'+id,
+            url: '/api/v1/goods/'+id,
             dataType: 'json',
             contentType:'application/json; charset=utf-8'
         }).done(function() {
-            alert('글이 삭제되었습니다.');
+            alert('상품이 삭제되었습니다.');
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));

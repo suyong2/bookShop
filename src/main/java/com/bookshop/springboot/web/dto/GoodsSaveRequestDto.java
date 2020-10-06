@@ -1,15 +1,20 @@
 package com.bookshop.springboot.web.dto;
 
 import com.bookshop.springboot.domain.goods.Goods;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.bookshop.springboot.domain.imagefile.ImageFile;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Transient;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
+@Setter
+@ToString
 @NoArgsConstructor
 public class GoodsSaveRequestDto {
     private String goodsTitle;
@@ -18,16 +23,27 @@ public class GoodsSaveRequestDto {
     private String goodsPublisher;
     private String goodsStatus;
     private String goodsIsbn;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate goodsPublishedDate;
+    private Integer goodsSalesPrice;
+    private List<ImagesSaveRequestDto> imageList;
+
+//    public void setImageList(List<ImagesSaveRequestDto> imageList){
+//        this.imageList = imageList;
+//    }
 
     @Builder
     public GoodsSaveRequestDto(String goodsTitle, String goodsWriter, Integer goodsPrice,
-                               String goodsPublisher, String goodsStatus, String goodsIsbn) {
+                               String goodsPublisher, String goodsStatus, String goodsIsbn,
+                               LocalDate goodsPublishedDate, Integer goodsSalesPrice) {
         this.goodsTitle = goodsTitle;
         this.goodsWriter = goodsWriter;
         this.goodsPrice = goodsPrice;
         this.goodsPublisher = goodsPublisher;
         this.goodsStatus = goodsStatus;
         this.goodsIsbn = goodsIsbn;
+        this.goodsPublishedDate = goodsPublishedDate;
+        this.goodsSalesPrice = goodsSalesPrice;
     }
 
     public Goods toEntity() {
@@ -38,6 +54,8 @@ public class GoodsSaveRequestDto {
                 .goodsPublisher(goodsPublisher)
                 .goodsStatus(goodsStatus)
                 .goodsIsbn(goodsIsbn)
+                .goodsPublishedDate(goodsPublishedDate)
+                .goodsSalesPrice(goodsSalesPrice)
                 .build();
     }
 }
