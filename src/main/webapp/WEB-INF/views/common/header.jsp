@@ -14,6 +14,7 @@
 	</div>
 	<div id="head_link">
 		<ul>
+			<li><a data-toggle="modal" href="#explainModal">알려드립니다.</a></li>
 		   <c:choose>
 		     <c:when test="${not empty user }">
 				 <li id="user">
@@ -62,6 +63,32 @@
 <!--					<div class="col-md-6">-->
 						<a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
 						<a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+<!--					</div>-->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="explainModal" tabindex="-1" role="dialog" aria-labelledby="explainModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="explainModalLabel">알려드립니다.</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+<!--					<div class="col-md-6">-->
+						본 포트폴리오는 <자바 웹을 다루는 기술>-길벗/ 이병승님의 책에 나오는 예제를
+						스프링부트와 JPA로 변경하여 수정한 결과물입니다.<br/>
+						현재 상세보기와 SNS 로그인후 관리자페이지에서 아이템및 이미지추가, 삭제만 구현되었습니다만,
+						계속 작업진행할 예정입니다.<br/>
+						감사합니다.
 <!--					</div>-->
 				</div>
 				<div class="modal-footer">
