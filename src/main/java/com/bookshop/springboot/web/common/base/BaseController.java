@@ -25,10 +25,11 @@ public abstract class BaseController  {
 	protected List<ImagesSaveRequestDto> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List<ImagesSaveRequestDto> fileList= new ArrayList<ImagesSaveRequestDto>(); //파일들 정보수집용리스트
 		Iterator<String> fileNames = multipartRequest.getFileNames();// 파일이름들 목록을 가져온다..
-
+		
 		while(fileNames.hasNext()){
 			ImagesSaveRequestDto imageFileVO =new ImagesSaveRequestDto();
 			String fileName = fileNames.next();
+			System.out.println("image파일네임 : "+fileName);
 			imageFileVO.setFileType(fileName);
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 
