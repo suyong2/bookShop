@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bookshop.springboot.web.dto.ImagesSaveRequestDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +21,16 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 public abstract class BaseController  {
-	protected static final String CURR_IMAGE_REPO_PATH = "D:\\shopping\\file_repo";
+	protected static String CURR_IMAGE_REPO_PATH = "D:\\shopping\\file_repo";
+	private final String div = System.getProperty("file.separator");
+
+	public BaseController(){
+		String os = System.getProperty("os.name").toLowerCase();
+
+		if (os.contains("linux")) {
+			CURR_IMAGE_REPO_PATH = "home/ec2-user/shopping/file_repo";
+		}
+	}
 
 	protected List<ImagesSaveRequestDto> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List<ImagesSaveRequestDto> fileList= new ArrayList<ImagesSaveRequestDto>(); //파일들 정보수집용리스트
@@ -38,11 +48,11 @@ public abstract class BaseController  {
 			fileList.add(imageFileVO);
 
 			if(mFile.getSize()!=0){ //File Null Check
-				File file = new File(CURR_IMAGE_REPO_PATH +"\\"+ fileName);
+				File file = new File(CURR_IMAGE_REPO_PATH +div+ fileName);
 
-				if (!new File(CURR_IMAGE_REPO_PATH+"\\temp").exists()) {
+				if (!new File(CURR_IMAGE_REPO_PATH+div+"temp").exists()) {
 					try{
-						new File(CURR_IMAGE_REPO_PATH+"\\temp").mkdir();
+						new File(CURR_IMAGE_REPO_PATH+div+"temp").mkdir();
 					}
 					catch(Exception e){
 						e.getStackTrace();
@@ -53,17 +63,17 @@ public abstract class BaseController  {
 						file.createNewFile(); //이후 파일 생성
 					}
 				}
-				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+originalFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
+				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +div+"temp"+ div+originalFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
 			}
 
-//			String filePath = CURR_IMAGE_REPO_PATH+"\\temp\\" + originalFileName;
+//			String filePath = CURR_IMAGE_REPO_PATH+div+"temp"+ div+ originalFileName;
 //			mFile.transferTo(new File(filePath));
 		}
 		return fileList;
 	}
 	
 	private void deleteFile(String fileName) {
-		File file =new File(CURR_IMAGE_REPO_PATH+"\\"+fileName);
+		File file =new File(CURR_IMAGE_REPO_PATH+div+fileName);
 		try{
 			file.delete();
 		}catch(Exception e){

@@ -28,6 +28,7 @@ import java.util.Map;
 public class GoodsApiController extends BaseController {
     private final GoodsService goodsService;
     private final AdminGoodsService adminGoodsService;
+    private final String div = System.getProperty("file.separator");
 
     @DeleteMapping("/api/v1/goods/{id}")
     public Long delete(@PathVariable Long id) {
@@ -37,6 +38,7 @@ public class GoodsApiController extends BaseController {
 
     @PostMapping("/api/v1/goods")
     public Long save(MultipartHttpServletRequest request, GoodsSaveRequestDto requestDto) throws Exception{
+
         System.out.println("save시 : "+requestDto);
         request.setCharacterEncoding("utf-8");
         List<ImagesSaveRequestDto> imageFileList =upload(request);
@@ -55,9 +57,9 @@ public class GoodsApiController extends BaseController {
                 for(ImagesSaveRequestDto imageFileVO:imageFileList) {
                     imageFileName = imageFileVO.getFileName();
                     File srcFile =
-                            new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
+                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
                     File destDir =
-                            new File(CURR_IMAGE_REPO_PATH+"\\"+goodsId);
+                            new File(CURR_IMAGE_REPO_PATH+div+goodsId);
                     FileUtils.moveFileToDirectory(srcFile, destDir,true);
                 }
             }
@@ -66,7 +68,7 @@ public class GoodsApiController extends BaseController {
                 for(ImagesSaveRequestDto imageFileVO:imageFileList) {
                     imageFileName = imageFileVO.getFileName();
                     File srcFile =
-                            new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
+                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
                     srcFile.delete();
                 }
             }
@@ -96,9 +98,9 @@ public class GoodsApiController extends BaseController {
                     imageFileName = imageFileVO.getFileName();
                     if (imageFileName!= null && !imageFileName.equals("")){
                         File srcFile =
-                                new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
+                                new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
                         File destDir =
-                                new File(CURR_IMAGE_REPO_PATH+"\\"+id);
+                                new File(CURR_IMAGE_REPO_PATH+div+id);
                         FileUtils.moveFileToDirectory(srcFile, destDir,true);
                     }
                 }
@@ -108,7 +110,7 @@ public class GoodsApiController extends BaseController {
                 for(ImagesSaveRequestDto imageFileVO:imageFileList) {
                     imageFileName = imageFileVO.getFileName();
                     File srcFile =
-                            new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
+                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
                     srcFile.delete();
                 }
             }
