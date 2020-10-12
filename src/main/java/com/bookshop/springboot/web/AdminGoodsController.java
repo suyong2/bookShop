@@ -1,5 +1,7 @@
 package com.bookshop.springboot.web;
 
+import com.bookshop.springboot.config.auth.LoginUser;
+import com.bookshop.springboot.config.auth.dto.SessionUser;
 import com.bookshop.springboot.service.AdminGoodsService;
 import com.bookshop.springboot.service.GoodsService;
 import com.bookshop.springboot.web.common.base.BaseController;
@@ -33,21 +35,27 @@ public class AdminGoodsController extends BaseController {
     private String resourcesUriPath;
 
     @GetMapping("/save")
-    public String postsSave() {
+    public String postsSave(Model model, @LoginUser SessionUser user) {
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "admin-goods-save";
     }
 
     @GetMapping("/update/{id}")
-    public String goodsDetail(@PathVariable Long id, Model model) {
+    public String goodsDetail(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
         Map goodsMap= adminGoodsService.findById(id);
         model.addAttribute("goodsMap", goodsMap);
         model.addAttribute("resourcesUriPath", resourcesUriPath);
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "admin-goods-update";
     }
 
     @GetMapping("/main")
     public String goodsSave(HttpSession session, @RequestParam Map<String, String> dateMap,
-                            Model model) {
+                            Model model, @LoginUser SessionUser user) {
 //        HttpSession session=request.getSession();
         session.setAttribute("side_menu", "admin_mode"); //마이페이지 사이드 메뉴로 설정한다.
 
@@ -75,6 +83,9 @@ public class AdminGoodsController extends BaseController {
         condMap.put("endDate", endDate);
 
         model.addAttribute("newGoodsList", adminGoodsService.listNewGoods(condMap));
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "admin-goods-main";
     }
 }

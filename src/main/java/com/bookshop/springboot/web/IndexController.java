@@ -41,10 +41,13 @@ public class IndexController {
     }
 
     @GetMapping("/goods/detail/{id}")
-    public String goodsDetail(@PathVariable Long id, Model model) {
+    public String goodsDetail(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
         GoodsResponseDto dto= goodsService.goodsDetail(id);
         model.addAttribute("goods", dto);
         model.addAttribute("resourcesUriPath", resourcesUriPath);
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "goods-detail";
     }
 
