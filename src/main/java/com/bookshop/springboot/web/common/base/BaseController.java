@@ -28,7 +28,7 @@ public abstract class BaseController  {
 		String os = System.getProperty("os.name").toLowerCase();
 
 		if (os.contains("linux")) {
-			CURR_IMAGE_REPO_PATH = "home/ec2-user/shopping/file_repo";
+			CURR_IMAGE_REPO_PATH = "/home/ec2-user/shopping/file_repo";
 		}
 	}
 
