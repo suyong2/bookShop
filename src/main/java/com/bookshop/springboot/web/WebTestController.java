@@ -48,7 +48,7 @@ public class WebTestController {
         return s3Uploader.upload(multipartFile, "shopping/file_repo");
     }
 
-    @GetMapping("/download")
+    @GetMapping("/down")
     public void download(@RequestParam("imageFileName") String imageFileName,
                          HttpServletResponse response)throws Exception {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey,
