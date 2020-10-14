@@ -309,7 +309,7 @@ function fn_modify_goods(goodsId, attribute){
 								<br>
 							</td>
 							<td>
-								<img  id="preview${itemNum.count }"   width=200 height=200 src="/download?imageFileName=${goods.goodsId }/${item.fileName}" />
+								<img  id="preview${itemNum.count }"   width=200 height=200 src="${resourcesUriPath}/${goods.goodsId }/${item.fileName}" />
 							</td>
 							<td>
 								&nbsp;&nbsp;&nbsp;&nbsp;
@@ -331,7 +331,7 @@ function fn_modify_goods(goodsId, attribute){
 									<br>
 								</td>
 								<td>
-									<img  id="preview${itemNum.count }"   width=200 height=200 src="/download?imageFileName=${goods.goodsId }/${item.fileName}" />
+									<img  id="preview${itemNum.count }"   width=200 height=200 src="/${goods.goodsId }/${item.fileName}" />
 								</td>
 <!--								<td>-->
 <!--									&nbsp;&nbsp;&nbsp;&nbsp;-->
