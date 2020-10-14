@@ -3,6 +3,7 @@ package com.bookshop.springboot.web;
 import com.bookshop.springboot.domain.goods.Goods;
 import com.bookshop.springboot.service.AdminGoodsService;
 import com.bookshop.springboot.service.GoodsService;
+import com.bookshop.springboot.util.S3Uploader;
 import com.bookshop.springboot.web.common.base.BaseController;
 import com.bookshop.springboot.web.dto.GoodsResponseDto;
 import com.bookshop.springboot.web.dto.GoodsSaveRequestDto;
@@ -18,10 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -29,6 +27,7 @@ public class GoodsApiController extends BaseController {
     private final GoodsService goodsService;
     private final AdminGoodsService adminGoodsService;
     private final String div = System.getProperty("file.separator");
+    private final S3Uploader s3Uploader;
 
     @DeleteMapping("/api/v1/goods/{id}")
     public Long delete(@PathVariable Long id) {
@@ -44,36 +43,42 @@ public class GoodsApiController extends BaseController {
         List<ImagesSaveRequestDto> imageFileList =upload(request);
         System.out.println("save시 : "+imageFileList);
         if(imageFileList!= null && imageFileList.size()!=0) {
-//            for(ImagesSaveRequestDto imageFileVO : imageFileList) {
-//                imageFileVO.setRegId(reg_id);
-//            }
             requestDto.setImageList(imageFileList);
-
         }
         String imageFileName=null;
         Long goodsId = adminGoodsService.save(requestDto);
-        try {
-            if(imageFileList!=null && imageFileList.size()!=0) {
-                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
-                    imageFileName = imageFileVO.getFileName();
-                    File srcFile =
-                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
-                    File destDir =
-                            new File(CURR_IMAGE_REPO_PATH+div+goodsId);
-                    FileUtils.moveFileToDirectory(srcFile, destDir,true);
-                }
+
+        Iterator<String> fileNames = request.getFileNames();// 파일이름들 목록을 가져온다..
+        while(fileNames.hasNext()) {
+            String fileName = fileNames.next();
+            MultipartFile mFile = request.getFile(fileName);
+            if(mFile.getSize()!=0) { //File Null Check
+                s3Uploader.upload(mFile, "shopping/file_repo/" + goodsId);
             }
-        }catch(Exception e) {
-            if(imageFileList!=null && imageFileList.size()!=0) {
-                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
-                    imageFileName = imageFileVO.getFileName();
-                    File srcFile =
-                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
-                    srcFile.delete();
-                }
-            }
-            e.printStackTrace();
         }
+
+//        try {
+//            if(imageFileList!=null && imageFileList.size()!=0) {
+//                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
+//                    imageFileName = imageFileVO.getFileName();
+//                    File srcFile =
+//                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
+//                    File destDir =
+//                            new File(CURR_IMAGE_REPO_PATH+div+goodsId);
+//                    FileUtils.moveFileToDirectory(srcFile, destDir,true);
+//                }
+//            }
+//        }catch(Exception e) {
+//            if(imageFileList!=null && imageFileList.size()!=0) {
+//                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
+//                    imageFileName = imageFileVO.getFileName();
+//                    File srcFile =
+//                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
+//                    srcFile.delete();
+//                }
+//            }
+//            e.printStackTrace();
+//        }
         return goodsId;
     }
 
@@ -86,36 +91,41 @@ public class GoodsApiController extends BaseController {
         List<ImagesSaveRequestDto> imageFileList =upload(request);
         System.out.println("update시 : "+imageFileList);
         if(imageFileList!= null && imageFileList.size()!=0) {
-//            for(ImagesSaveRequestDto imageFileVO : imageFileList) {
-//                imageFileVO.setRegId(reg_id);
-//            }
             requestDto.setImageList(imageFileList);
         }
         String imageFileName=null;
-        try {
-            if(imageFileList!=null && imageFileList.size()!=0) {
-                for(ImagesSaveRequestDto imageFileVO : imageFileList) {
-                    imageFileName = imageFileVO.getFileName();
-                    if (imageFileName!= null && !imageFileName.equals("")){
-                        File srcFile =
-                                new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
-                        File destDir =
-                                new File(CURR_IMAGE_REPO_PATH+div+id);
-                        FileUtils.moveFileToDirectory(srcFile, destDir,true);
-                    }
-                }
+        Iterator<String> fileNames = request.getFileNames();// 파일이름들 목록을 가져온다..
+        while(fileNames.hasNext()) {
+            String fileName = fileNames.next();
+            MultipartFile mFile = request.getFile(fileName);
+            if(mFile.getSize()!=0) { //File Null Check
+                s3Uploader.upload(mFile, "shopping/file_repo/" + id);
             }
-        }catch(Exception e) {
-            if(imageFileList!=null && imageFileList.size()!=0) {
-                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
-                    imageFileName = imageFileVO.getFileName();
-                    File srcFile =
-                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
-                    srcFile.delete();
-                }
-            }
-            e.printStackTrace();
         }
+//        try {
+//            if(imageFileList!=null && imageFileList.size()!=0) {
+//                for(ImagesSaveRequestDto imageFileVO : imageFileList) {
+//                    imageFileName = imageFileVO.getFileName();
+//                    if (imageFileName!= null && !imageFileName.equals("")){
+//                        File srcFile =
+//                                new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
+//                        File destDir =
+//                                new File(CURR_IMAGE_REPO_PATH+div+id);
+//                        FileUtils.moveFileToDirectory(srcFile, destDir,true);
+//                    }
+//                }
+//            }
+//        }catch(Exception e) {
+//            if(imageFileList!=null && imageFileList.size()!=0) {
+//                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
+//                    imageFileName = imageFileVO.getFileName();
+//                    File srcFile =
+//                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
+//                    srcFile.delete();
+//                }
+//            }
+//            e.printStackTrace();
+//        }
         return adminGoodsService.update(id, requestDto);
     }
 

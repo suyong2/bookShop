@@ -39,7 +39,6 @@ public abstract class BaseController  {
 		while(fileNames.hasNext()){
 			ImagesSaveRequestDto imageFileVO =new ImagesSaveRequestDto();
 			String fileName = fileNames.next();
-//			System.out.println("image파일네임 : "+fileName);
 			imageFileVO.setFileType(fileName);
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 
@@ -47,27 +46,24 @@ public abstract class BaseController  {
 			imageFileVO.setFileName(originalFileName);
 			fileList.add(imageFileVO);
 
-			if(mFile.getSize()!=0){ //File Null Check
-				File file = new File(CURR_IMAGE_REPO_PATH +div+ fileName);
-
-				if (!new File(CURR_IMAGE_REPO_PATH+div+"temp").exists()) {
-					try{
-						new File(CURR_IMAGE_REPO_PATH+div+"temp").mkdir();
-					}
-					catch(Exception e){
-						e.getStackTrace();
-					}
-				}
-				if(! file.exists()){ //경로상에 파일이 존재하지 않을 경우
-					if(file.getParentFile().mkdirs()){ //경로에 해당하는 디렉토리들을 생성
-						file.createNewFile(); //이후 파일 생성
-					}
-				}
-				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +div+"temp"+ div+originalFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
-			}
-
-//			String filePath = CURR_IMAGE_REPO_PATH+div+"temp"+ div+ originalFileName;
-//			mFile.transferTo(new File(filePath));
+//			if(mFile.getSize()!=0){ //File Null Check
+//				File file = new File(CURR_IMAGE_REPO_PATH +div+ fileName);
+//
+//				if (!new File(CURR_IMAGE_REPO_PATH+div+"temp").exists()) {
+//					try{
+//						new File(CURR_IMAGE_REPO_PATH+div+"temp").mkdir();
+//					}
+//					catch(Exception e){
+//						e.getStackTrace();
+//					}
+//				}
+//				if(! file.exists()){ //경로상에 파일이 존재하지 않을 경우
+//					if(file.getParentFile().mkdirs()){ //경로에 해당하는 디렉토리들을 생성
+//						file.createNewFile(); //이후 파일 생성
+//					}
+//				}
+//				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +div+"temp"+ div+originalFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
+//			}
 		}
 		return fileList;
 	}

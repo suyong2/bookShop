@@ -11,10 +11,11 @@
   var cnt=0;
   function fn_addFile(obj){
 	  if(cnt == 0){
-		  $("#d_file").append("<br>"+"<input  type='file' name='main_image' id='f_main_image' />");	  
+		  $("#d_file").append("<br>"+"<input  type='file' name='main_image' id='f_main_image' />");
 	  }else{
-		  $("#d_file").append("<br>"+"<input  type='file' name='detail_image"+cnt+"' />");
+		  $("#d_file").append("<br>"+"<input  type='file' name='detail_image"+cnt+"'  />");
 	  }
+
 <!--  		$(obj).parents('td').hide();-->
   	cnt++;
   }
@@ -32,6 +33,7 @@
 <!--		console.log(formData);-->
 		obj.submit();
 	}
+
 </script>    
 </head>
 

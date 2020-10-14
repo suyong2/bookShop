@@ -1,10 +1,25 @@
 console.log('hello');
-
 var main = {
     init : function () {
         var _this = this;
         $('#btn-save').on('click', function () {
-            _this.save();
+            if ($("#d_file").children().length==0){
+                alert('상품 이미지를 등록해주세요.');
+                return false;
+            }
+            $("#d_file").children('input').each(function(index,item){
+                var fileValue = $(item).val().split("\\");
+                var fileName = fileValue[fileValue.length-1]; // 파일명
+                console.log(fileName);
+                if (!fileName){
+                    alert('상품 이미지를 등록해주세요.');
+                    return false;
+                } else {
+                    _this.save();
+                }
+            });
+
+
         });
 
         $('#btn-update').on('click', function () {

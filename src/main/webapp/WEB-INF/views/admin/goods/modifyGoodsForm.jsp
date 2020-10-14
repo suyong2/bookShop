@@ -309,7 +309,7 @@ function fn_modify_goods(goodsId, attribute){
 								<br>
 							</td>
 							<td>
-								<img  id="preview${itemNum.count }"   width=200 height=200 src="${resourcesUriPath}/${goods.goodsId }/${item.fileName}" />
+								<img  id="preview${itemNum.count }"   width=200 height=200 src="/download?imageFileName=${goods.goodsId }/${item.fileName}" />
 							</td>
 							<td>
 								&nbsp;&nbsp;&nbsp;&nbsp;
@@ -331,7 +331,7 @@ function fn_modify_goods(goodsId, attribute){
 									<br>
 								</td>
 								<td>
-									<img  id="preview${itemNum.count }"   width=200 height=200 src="${resourcesUriPath}/${goods.goodsId }/${item.fileName}" />
+									<img  id="preview${itemNum.count }"   width=200 height=200 src="/download?imageFileName=${goods.goodsId }/${item.fileName}" />
 								</td>
 <!--								<td>-->
 <!--									&nbsp;&nbsp;&nbsp;&nbsp;-->
@@ -371,7 +371,7 @@ function fn_modify_goods(goodsId, attribute){
 						<td align=center>
 							<!--   <input  type="submit" value="상품 등록하기"> -->
 							<!--				  <input  type="button" value="상품 등록하기"  onClick="fn_add_new_goods(this.form)">-->
-							<a href="/" role="button" class="btn btn-secondary">취소</a>
+							<a href="/admin/goods/main" role="button" class="btn btn-secondary">취소</a>
 							<button type="button" class="btn btn-primary" id="btn-update">수정 완료</button>
 							<button type="button" class="btn btn-danger" id="btn-delete">삭제</button>
 						</td>

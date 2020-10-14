@@ -44,7 +44,9 @@ request.setCharacterEncoding("UTF-8");
             contentType: false,
             cache: false
         }).done(function (data) {
-            $('#result-image').attr("src", data);
+            let arr=data.split('/');
+            console.log(arr[arr.length-1]);
+            $('#result-image').attr("src", "/download?imageFileName="+arr[arr.length-1]);
         }).fail(function (error) {
             alert(error);
         })

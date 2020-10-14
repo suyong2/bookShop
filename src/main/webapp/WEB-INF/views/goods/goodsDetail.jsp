@@ -135,7 +135,7 @@ function fn_order_each_goods(goodsId,goodsTitle,goodsSalesPrice,fileName){
 	<div id="goods_image">
 		<figure>
 			<img alt="HTML5 &amp; CSS3"
-				src="${resourcesUriPath}/${goods.goodsId }/${goods.imageList[0].fileName}">
+				src="/download?imageFileName=${goods.goodsId }/${goods.imageList[0].fileName}">
 		</figure>
 	</div>
 <form   action='#'  >
