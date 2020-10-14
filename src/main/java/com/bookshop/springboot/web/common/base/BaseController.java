@@ -39,7 +39,7 @@ public abstract class BaseController  {
 		while(fileNames.hasNext()){
 			ImagesSaveRequestDto imageFileVO =new ImagesSaveRequestDto();
 			String fileName = fileNames.next();
-			System.out.println("image파일네임 : "+fileName);
+//			System.out.println("image파일네임 : "+fileName);
 			imageFileVO.setFileType(fileName);
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 

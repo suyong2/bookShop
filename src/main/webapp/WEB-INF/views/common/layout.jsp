@@ -16,7 +16,10 @@
 <link href="/css/basic-jquery-slider.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/css/mobile.css" rel="stylesheet" type="text/css">
 <!--<script src="/js/jquery/jquery-1.6.2.min.js" type="text/javascript"></script>-->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+		crossorigin="anonymous"></script>
 <script src="/js/jquery/jquery.easing.1.3.js" type="text/javascript"></script>
 <script src="/js/jquery/stickysidebar.jquery.js" type="text/javascript"></script>
 <!--<script type="text/javascript" src="/js/jquery/sticky-sidebar.js"></script>-->
