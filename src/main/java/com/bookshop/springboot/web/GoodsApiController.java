@@ -42,6 +42,7 @@ public class GoodsApiController extends BaseController {
         request.setCharacterEncoding("utf-8");
         List<ImagesSaveRequestDto> imageFileList =upload(request);
         System.out.println("save시 : "+imageFileList);
+        System.out.println("이미지count : "+imageFileList.size());
         if(imageFileList!= null && imageFileList.size()!=0) {
             requestDto.setImageList(imageFileList);
         }
@@ -90,6 +91,7 @@ public class GoodsApiController extends BaseController {
 
         List<ImagesSaveRequestDto> imageFileList =upload(request);
         System.out.println("update시 : "+imageFileList);
+        System.out.println("이미지count : "+imageFileList.size());
         if(imageFileList!= null && imageFileList.size()!=0) {
             requestDto.setImageList(imageFileList);
         }

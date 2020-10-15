@@ -46,7 +46,7 @@ request.setCharacterEncoding("UTF-8");
         }).done(function (data) {
             let arr=data.split('/');
             console.log(arr[arr.length-1]);
-            $('#result-image').attr("src", "/download?imageFileName="+arr[arr.length-1]);
+            $('#result-image').attr("src", "/down?imageFileName="+arr[arr.length-1]);
         }).fail(function (error) {
             alert(error);
         })

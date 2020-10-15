@@ -3,10 +3,12 @@ var main = {
     init : function () {
         var _this = this;
         $('#btn-save').on('click', function () {
-            if ($("#d_file").children().length==0){
+            let fileLen= $("#d_file").children('input').length;
+            if (fileLen==0){
                 alert('상품 이미지를 등록해주세요.');
                 return false;
             }
+            let fileValidCount =0;
             $("#d_file").children('input').each(function(index,item){
                 var fileValue = $(item).val().split("\\");
                 var fileName = fileValue[fileValue.length-1]; // 파일명
@@ -15,6 +17,10 @@ var main = {
                     alert('상품 이미지를 등록해주세요.');
                     return false;
                 } else {
+                    fileValidCount++;
+                }
+                if (index== fileLen-1 // 모든 파일input에 대해 다 조사했는지 체크..
+                && fileValidCount== fileLen){ // 파일input갯수대로 모두 파일이 등록됐는지 체크..
                     _this.save();
                 }
             });
@@ -23,7 +29,27 @@ var main = {
         });
 
         $('#btn-update').on('click', function () {
-            _this.update();
+                let fileLen= $("#d_file").children('input').length;
+                if (fileLen){
+                    let fileValidCount =0;
+                    $("#d_file").children('img').each(function(index,item){
+                        var src = $(item).attr('src');
+                        console.log(src);
+                        if (!src){
+                            alert('상품 이미지를 등록해주세요.');
+                            return false;
+                        } else {
+                            fileValidCount++;
+                        }
+                        if (index== fileLen-1
+                            && fileValidCount== fileLen){ // 파일input갯수대로 모두 파일이 등록됐는지 체크..
+                            _this.update();
+                        }
+                    });
+                } else{
+                    _this.update();
+                }
+
         });
 
         $('#btn-delete').on('click', function () {

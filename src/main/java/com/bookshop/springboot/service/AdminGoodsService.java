@@ -86,17 +86,22 @@ public class AdminGoodsService {
         List<ImagesSaveRequestDto> newImageList = requestDto.getImageList();
         if (newImageList!= null) {
             List<ImageFile> orgImgList = imagesRepository.getImages(id);
-
+            System.out.println("이미지갯수:"+newImageList.size());
             for (int i=0; i<newImageList.size(); i++){
                 ImagesSaveRequestDto dto = newImageList.get(i);
-                if (i<orgImgList.size()){
+                System.out.println("이미지이름:"+dto.getFileName());
+                if (dto.getFileName()==null || dto.getFileName().equals("")){
                     ImageFile image= orgImgList.get(i);
-                    if (dto.getFileType().equals(image.getFileType())){
-                        if (dto.getFileName()==null || dto.getFileName().equals("")){
-                            dto.setFileName(image.getFileName());
-                        }
-                    }
+                    dto.setFileName(image.getFileName());
                 }
+//                if (i<orgImgList.size()){
+//                    ImageFile image= orgImgList.get(i);
+//                    if (dto.getFileType().equals(image.getFileType())){
+//                        if (dto.getFileName()==null || dto.getFileName().equals("")){
+//                            dto.setFileName(image.getFileName());
+//                        }
+//                    }
+//                }
             }
             for (ImageFile image: orgImgList){
                 imagesRepository.delete(image);

@@ -107,11 +107,10 @@ function fn_modify_goods(goodsId, attribute){
     }
   }
 
-  var cnt =1;
   function fn_addFile(){
+	  let cnt= $('input[type="file"]').length;
 	  $("#d_file").append("<br>"+"<input  type='file' name='detail_image"+cnt+"' id='detail_image"+cnt+"'  onchange=readURL(this,'previewImage"+cnt+"') />");
 	  $("#d_file").append("<img  id='previewImage"+cnt+"'   width=200 height=200  />");
-	  cnt++;
   }
 
   function modifyImageFile(fileId,goodsId, imageId,fileType){
@@ -309,7 +308,7 @@ function fn_modify_goods(goodsId, attribute){
 								<br>
 							</td>
 							<td>
-								<img  id="preview${itemNum.count }"   width=200 height=200 src="${resourcesUriPath}/${goods.goodsId }/${item.fileName}" />
+								<img  id="preview${itemNum.count }"   width=200 height=200 src="/down?imageFileName=${goods.goodsId }/${item.fileName}" />
 							</td>
 							<td>
 								&nbsp;&nbsp;&nbsp;&nbsp;
@@ -325,13 +324,13 @@ function fn_modify_goods(goodsId, attribute){
 							<tr  id="${itemNum.count-1}">
 								<td>상세 이미지${itemNum.count-1 }</td>
 								<td>
-									<input type="file" name="detail_image"  id="detail_image"   onchange="readURL(this,'preview${itemNum.count}');" />
+									<input type="file" name="detail_image${itemNum.count-1 }"  id="detail_image${itemNum.count-1 }"   onchange="readURL(this,'preview${itemNum.count}');" />
 									<%-- <input type="text" id="imageId${itemNum.count }"  value="${item.fileName }" disabled  /> --%>
 									<input type="hidden"  name="imageId" value="${item.imageId }"  />
 									<br>
 								</td>
 								<td>
-									<img  id="preview${itemNum.count }"   width=200 height=200 src="${resourcesUriPath}/${goods.goodsId }/${item.fileName}" />
+									<img  id="preview${itemNum.count }"   width=200 height=200 src="/down?imageFileName=${goods.goodsId }/${item.fileName}" />
 								</td>
 <!--								<td>-->
 <!--									&nbsp;&nbsp;&nbsp;&nbsp;-->
@@ -351,7 +350,7 @@ function fn_modify_goods(goodsId, attribute){
 						<tr align="center">
 							<td colspan="3">
 								<div id="d_file">
-									<%-- <img  id="preview${itemNum.count }"   width=200 height=200 src="${contextPath}/download.do?goodsId=${item.goodsId}&fileName=${item.fileName}" /> --%>
+									<%-- <img  id="preview${itemNum.count }"   width=200 height=200 src="${contextPath}/down.do?goodsId=${item.goodsId}&fileName=${item.fileName}" /> --%>
 								</div>
 							</td>
 						</tr>

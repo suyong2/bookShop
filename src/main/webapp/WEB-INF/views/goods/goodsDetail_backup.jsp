@@ -230,7 +230,7 @@ function fn_order_each_goods(goodsId,goodsTitle,goodsSalesPrice,fileName){
 				<p>${fn:replace(goods.goodsIntro,crcn,br)}</p>
 				<c:forEach var="image" items="${imageList }">
 					<img 
-						src="${contextPath}/download.do?goodsId=${goods.goodsId}&fileName=${image.fileName}">
+						src="${contextPath}/down.do?goodsId=${goods.goodsId}&fileName=${image.fileName}">
 				</c:forEach>
 			</div>
 			<div class="tab_content" id="tab2">
