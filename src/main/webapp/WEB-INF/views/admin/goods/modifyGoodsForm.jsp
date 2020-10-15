@@ -293,75 +293,75 @@ function fn_modify_goods(goodsId, attribute){
 
 			</DIV>
 			<DIV class="tab_content" id="tab7">
-<!--				<form id="FILE_FORM" method="post" enctype="multipart/form-data"  >-->
-					<h4>상품이미지</h4>
-					<table>
-						<tr>
-							<c:forEach var="item" items="${imageFileList }"  varStatus="itemNum">
-								<c:choose>
-									<c:when test="${item.fileType=='main_image' }">
-						<tr>
-							<td>메인 이미지</td>
+				<!--				<form id="FILE_FORM" method="post" enctype="multipart/form-data"  >-->
+				<h4>상품이미지</h4>
+				<table>
+					<tr>
+						<c:forEach var="item" items="${imageFileList }"  varStatus="itemNum">
+							<c:choose>
+								<c:when test="${item.fileType=='main_image' }">
+					<tr>
+						<td>메인 이미지</td>
+						<td>
+							<input type="file"  id="main_image"  name="main_image"  onchange="readURL(this,'preview${itemNum.count}');" />
+							<input type="hidden"  name="imageId" value="${item.imageId}"  />
+							<br>
+						</td>
+						<td>
+							<img  id="preview${itemNum.count }"   width=200 height=200 src="${resourcesUriPath}/${goods.goodsId }/${item.fileName}" />
+						</td>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<br>
+						</td>
+					</tr>
+					</c:when>
+					<c:otherwise>
+						<tr  id="${itemNum.count-1}">
+							<td>상세 이미지${itemNum.count-1 }</td>
 							<td>
-								<input type="file"  id="main_image"  name="main_image"  onchange="readURL(this,'preview${itemNum.count}');" />
-								<input type="hidden"  name="imageId" value="${item.imageId}"  />
+								<input type="file" name="detail_image${itemNum.count-1 }"  id="detail_image${itemNum.count-1 }"   onchange="readURL(this,'preview${itemNum.count}');" />
+								<%-- <input type="text" id="imageId${itemNum.count }"  value="${item.fileName }" disabled  /> --%>
+								<input type="hidden"  name="imageId" value="${item.imageId }"  />
 								<br>
 							</td>
 							<td>
-								<img  id="preview${itemNum.count }"   width=200 height=200 src="/down?imageFileName=${goods.goodsId }/${item.fileName}" />
+								<img  id="preview${itemNum.count }"   width=200 height=200 src="${resourcesUriPath}/${goods.goodsId }/${item.fileName}" />
 							</td>
-							<td>
-								&nbsp;&nbsp;&nbsp;&nbsp;
-							</td>
+							<!--								<td>-->
+							<!--									&nbsp;&nbsp;&nbsp;&nbsp;-->
+							<!--								</td>-->
+							<!--								<td>-->
+							<!--									<input  type="button" value="삭제"  onClick="deleteImg(this);"/>-->
+							<!--								</td>-->
 						</tr>
 						<tr>
 							<td>
 								<br>
 							</td>
 						</tr>
-						</c:when>
-						<c:otherwise>
-							<tr  id="${itemNum.count-1}">
-								<td>상세 이미지${itemNum.count-1 }</td>
-								<td>
-									<input type="file" name="detail_image${itemNum.count-1 }"  id="detail_image${itemNum.count-1 }"   onchange="readURL(this,'preview${itemNum.count}');" />
-									<%-- <input type="text" id="imageId${itemNum.count }"  value="${item.fileName }" disabled  /> --%>
-									<input type="hidden"  name="imageId" value="${item.imageId }"  />
-									<br>
-								</td>
-								<td>
-									<img  id="preview${itemNum.count }"   width=200 height=200 src="/down?imageFileName=${goods.goodsId }/${item.fileName}" />
-								</td>
-<!--								<td>-->
-<!--									&nbsp;&nbsp;&nbsp;&nbsp;-->
-<!--								</td>-->
-<!--								<td>-->
-<!--									<input  type="button" value="삭제"  onClick="deleteImg(this);"/>-->
-<!--								</td>-->
-							</tr>
-							<tr>
-								<td>
-									<br>
-								</td>
-							</tr>
-						</c:otherwise>
-						</c:choose>
-						</c:forEach>
-						<tr align="center">
-							<td colspan="3">
-								<div id="d_file">
-									<%-- <img  id="preview${itemNum.count }"   width=200 height=200 src="${contextPath}/down.do?goodsId=${item.goodsId}&fileName=${item.fileName}" /> --%>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td align=center colspan=2>
+					</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<tr align="center">
+						<td colspan="3">
+							<div id="d_file">
+								<%-- <img  id="preview${itemNum.count }"   width=200 height=200 src="${contextPath}/down.do?goodsId=${item.goodsId}&fileName=${item.fileName}" /> --%>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td align=center colspan=2>
 
-								<input   type="button" value="이미지파일추가하기"  onClick="fn_addFile()"  />
-							</td>
-						</tr>
-					</table>
-<!--				</form>-->
+							<input   type="button" value="이미지파일추가하기"  onClick="fn_addFile()"  />
+						</td>
+					</tr>
+				</table>
+				<!--				</form>-->
 			</DIV>
 			<div class="clear"></div>
 			<center>
