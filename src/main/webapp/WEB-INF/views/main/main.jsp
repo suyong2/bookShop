@@ -25,7 +25,7 @@
 			<img class="link"  src="/image/1px.gif">
 			</a>
                 <img width="121" height="154"
-					 src="/down?imageFileName=${item.goodsId }/${item.imageList[0].fileName}">
+					 src="${resourcesUriPath}/${item.goodsId }/${item.imageList[0].fileName}">
 
 			<div class="title">${item.goodsTitle }</div>
 			<div class="price">
