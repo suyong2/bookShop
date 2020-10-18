@@ -4,7 +4,5 @@
 build
 application-oauth.properties
 application-real-db.properties
-application-dev-db.properties
-application-aws.properties
 application-aws.yml
 bin

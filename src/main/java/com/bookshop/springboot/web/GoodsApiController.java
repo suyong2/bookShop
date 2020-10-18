@@ -84,7 +84,7 @@ public class GoodsApiController extends BaseController {
     }
 
     @PutMapping("/api/v1/goods/{id}")
-    public Long update(@PathVariable Long id, MultipartHttpServletRequest request,
+    public Long update(MultipartHttpServletRequest request, @PathVariable Long id,
                        GoodsUpdateRequestDto requestDto) throws Exception {
         System.out.println("update시 : "+requestDto);
         request.setCharacterEncoding("utf-8");

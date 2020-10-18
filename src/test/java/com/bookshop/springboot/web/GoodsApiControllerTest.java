@@ -18,12 +18,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -40,7 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import static org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -120,42 +127,42 @@ public class GoodsApiControllerTest {
         //given
         String goodsTitle = "Hello";
         String goodsWriter = "world";
-        String fileName = "testFile";
-//        List<ImagesSaveRequestDto> fileList= new ArrayList<>();
-//        for (int i=0; i<3; i++){
-//            ImagesSaveRequestDto img = ImagesSaveRequestDto.builder()
-//                    .fileName("testFile"+i)
-//                    .build();
-//            fileList.add(img);
-//        }
-//        requestDto.setImageList(fileList);
+        String[] fileNames = {"BoyWho.png", "캡처한것.PNG"};
 
-//        String url = "http://localhost:" + port + "/api/v1/goods";
-//        FileInputStream fis = new FileInputStream("D:\\LIBRARY\\Pictures\\2364_shop1_511851.jpg");
-//        MockMultipartFile multipartFile = new MockMultipartFile("file", fis);
+        FileInputStream fis = new FileInputStream(fileNames[0]);
+//        FileInputStream fis2 = new FileInputStream(fileNames[1]);
 
+        MockMultipartFile file = new MockMultipartFile("main_image", fis);
+//        MockMultipartFile file2 = new MockMultipartFile("detail_image0", fis2);
+        MockHttpServletRequestBuilder builder =
+                MockMvcRequestBuilders.multipart("/api/v1/goods")
+                        .file(file)
+//                        .file(file2)
+                        ;
+        builder.with(new RequestPostProcessor() {
+            @Override
+            public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
+                request.setMethod("POST");
+                return request;
+            }
+        });
         //when
-        mvc.perform(post("/api/v1/goods")
-//                .file(multipartFile)
+        mvc.perform(builder
                 .param("goodsTitle", goodsTitle)
                 .param("goodsWriter", goodsWriter)
-//                .param("imageList", goodsWriter)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
 //                .andExpect(content().string("데일의 블로그입니다. dale"))
                 .andDo(print());
-//
         List<Goods> all = goodsRepository.findAll();
-//        List<ImageFile> imageList = imagesRepository.findAll();
-//
+        List<ImageFile> imageList = imagesRepository.findAllOrdered();
         assertThat(all.get(0).getGoodsTitle()).isEqualTo(goodsTitle);
         assertThat(all.get(0).getGoodsWriter()).isEqualTo(goodsWriter);
-//
-//        for (int i=0;i<imageList.size();i++){
-//            ImageFile image = imageList.get(i);
-//            assertThat(image.getFileName()).isEqualTo(fileName+i);
-//        }
+        for (int i=0;i<imageList.size();i++){
+            ImageFile image = imageList.get(i);
+            assertThat(image.getFileName()).isEqualTo(fileNames[i]);
+        }
     }
 
     @Test
@@ -178,12 +185,24 @@ public class GoodsApiControllerTest {
         String expectedTitle = "Hello2";
         String expectedWriter = "world2";
         System.out.println("/api/v1/goods/"+updateId);
+
+        MockMultipartFile file = new MockMultipartFile("data", "dummy.csv",
+                "text/plain", "Some dataset...".getBytes());
+        MockHttpServletRequestBuilder builder =
+                MockMvcRequestBuilders.multipart("/api/v1/goods/"+updateId)
+                        .file(file);
+        builder.with(new RequestPostProcessor() {
+            @Override
+            public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
+                request.setMethod("PUT");
+                return request;
+            }
+        });
+
         //when
-        mvc.perform(put("/api/v1/goods/"+updateId)
-//                .file(multipartFile)
+        mvc.perform(builder
                 .param("goodsTitle", expectedTitle)
                 .param("goodsWriter", expectedWriter)
-//                .param("imageList", goodsWriter)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

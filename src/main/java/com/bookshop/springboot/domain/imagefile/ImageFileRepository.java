@@ -15,4 +15,7 @@ public interface ImageFileRepository extends JpaRepository<ImageFile, Long> {
 
     @Query("select i from ImageFile i where i.goods.goodsId=:goodsId order by i.imageId asc")
     List<ImageFile> getImages(@Param("goodsId") Long id);
+
+    @Query("select i from ImageFile i order by i.imageId asc")
+    List<ImageFile> findAllOrdered();
 }

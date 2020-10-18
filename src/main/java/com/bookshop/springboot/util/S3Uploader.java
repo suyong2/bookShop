@@ -19,20 +19,14 @@ import java.io.IOException;
 import java.util.Optional;
 
 @Slf4j
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @Component
 public class S3Uploader {
 
-//    private final AmazonS3Client amazonS3Client;
+    private final AmazonS3 s3Client;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
-
-    @Value("${cloud.aws.credentials.accessKey}")
-    private String accessKey;
-
-    @Value("${cloud.aws.credentials.secretKey}")
-    private String secretKey;
 
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)
@@ -49,15 +43,7 @@ public class S3Uploader {
     }
 
     private String putS3(File uploadFile, String fileName) {
-//        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey,
-                secretKey);
-
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
-                .withRegion(Regions.AP_NORTHEAST_2)
-                .build();
-        s3Client.putObject(bucket,fileName, uploadFile);
+        s3Client.putObject(bucket, fileName, uploadFile);
         return s3Client.getUrl(bucket, fileName).toString();
     }
 
