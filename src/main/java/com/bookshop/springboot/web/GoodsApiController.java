@@ -49,37 +49,37 @@ public class GoodsApiController extends BaseController {
         String imageFileName=null;
         Long goodsId = adminGoodsService.save(requestDto);
 
-//        Iterator<String> fileNames = request.getFileNames();// 파일이름들 목록을 가져온다..
-//        while(fileNames.hasNext()) {
-//            String fileName = fileNames.next();
-//            MultipartFile mFile = request.getFile(fileName);
-//            if(mFile.getSize()!=0) { //File Null Check
-//                s3Uploader.upload(mFile, "shopping/file_repo/" + goodsId);
-//            }
-//        }
-
-        try {
-            if(imageFileList!=null && imageFileList.size()!=0) {
-                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
-                    imageFileName = imageFileVO.getFileName();
-                    File srcFile =
-                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
-                    File destDir =
-                            new File(CURR_IMAGE_REPO_PATH+div+goodsId);
-                    FileUtils.moveFileToDirectory(srcFile, destDir,true);
-                }
+        Iterator<String> fileNames = request.getFileNames();// 파일이름들 목록을 가져온다..
+        while(fileNames.hasNext()) {
+            String fileName = fileNames.next();
+            MultipartFile mFile = request.getFile(fileName);
+            if(mFile.getSize()!=0) { //File Null Check
+                s3Uploader.upload(mFile, "shopping/file_repo/" + goodsId);
             }
-        }catch(Exception e) {
-            if(imageFileList!=null && imageFileList.size()!=0) {
-                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
-                    imageFileName = imageFileVO.getFileName();
-                    File srcFile =
-                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
-                    srcFile.delete();
-                }
-            }
-            e.printStackTrace();
         }
+
+//        try {
+//            if(imageFileList!=null && imageFileList.size()!=0) {
+//                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
+//                    imageFileName = imageFileVO.getFileName();
+//                    File srcFile =
+//                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
+//                    File destDir =
+//                            new File(CURR_IMAGE_REPO_PATH+div+goodsId);
+//                    FileUtils.moveFileToDirectory(srcFile, destDir,true);
+//                }
+//            }
+//        }catch(Exception e) {
+//            if(imageFileList!=null && imageFileList.size()!=0) {
+//                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
+//                    imageFileName = imageFileVO.getFileName();
+//                    File srcFile =
+//                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
+//                    srcFile.delete();
+//                }
+//            }
+//            e.printStackTrace();
+//        }
         return goodsId;
     }
 
@@ -96,39 +96,39 @@ public class GoodsApiController extends BaseController {
             requestDto.setImageList(imageFileList);
         }
         String imageFileName=null;
-//        Iterator<String> fileNames = request.getFileNames();// 파일이름들 목록을 가져온다..
-//        while(fileNames.hasNext()) {
-//            String fileName = fileNames.next();
-//            MultipartFile mFile = request.getFile(fileName);
-//            if(mFile.getSize()!=0) { //File Null Check
-//                s3Uploader.upload(mFile, "shopping/file_repo/" + id);
-//            }
-//        }
-
-        try {
-            if(imageFileList!=null && imageFileList.size()!=0) {
-                for(ImagesSaveRequestDto imageFileVO : imageFileList) {
-                    imageFileName = imageFileVO.getFileName();
-                    if (imageFileName!= null && !imageFileName.equals("")){
-                        File srcFile =
-                                new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
-                        File destDir =
-                                new File(CURR_IMAGE_REPO_PATH+div+id);
-                        FileUtils.moveFileToDirectory(srcFile, destDir,true);
-                    }
-                }
+        Iterator<String> fileNames = request.getFileNames();// 파일이름들 목록을 가져온다..
+        while(fileNames.hasNext()) {
+            String fileName = fileNames.next();
+            MultipartFile mFile = request.getFile(fileName);
+            if(mFile.getSize()!=0) { //File Null Check
+                s3Uploader.upload(mFile, "shopping/file_repo/" + id);
             }
-        }catch(Exception e) {
-            if(imageFileList!=null && imageFileList.size()!=0) {
-                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
-                    imageFileName = imageFileVO.getFileName();
-                    File srcFile =
-                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
-                    srcFile.delete();
-                }
-            }
-            e.printStackTrace();
         }
+
+//        try {
+//            if(imageFileList!=null && imageFileList.size()!=0) {
+//                for(ImagesSaveRequestDto imageFileVO : imageFileList) {
+//                    imageFileName = imageFileVO.getFileName();
+//                    if (imageFileName!= null && !imageFileName.equals("")){
+//                        File srcFile =
+//                                new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
+//                        File destDir =
+//                                new File(CURR_IMAGE_REPO_PATH+div+id);
+//                        FileUtils.moveFileToDirectory(srcFile, destDir,true);
+//                    }
+//                }
+//            }
+//        }catch(Exception e) {
+//            if(imageFileList!=null && imageFileList.size()!=0) {
+//                for(ImagesSaveRequestDto imageFileVO:imageFileList) {
+//                    imageFileName = imageFileVO.getFileName();
+//                    File srcFile =
+//                            new File(CURR_IMAGE_REPO_PATH+div+"temp"+div+imageFileName);
+//                    srcFile.delete();
+//                }
+//            }
+//            e.printStackTrace();
+//        }
         return adminGoodsService.update(id, requestDto);
     }
 
