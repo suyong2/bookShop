@@ -62,7 +62,7 @@
 				<div class="modal-body">
 <!--					<div class="col-md-6">-->
 						<a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
-						<a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+<!--						<a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>-->
 <!--					</div>-->
 				</div>
 				<div class="modal-footer">

@@ -138,6 +138,47 @@ function fn_order_each_goods(goodsId,goodsTitle,goodsSalesPrice,fileName){
 				 src="/down?imageFileName=${goods.goodsId }/${goods.imageList[0].fileName}">
 		</figure>
 	</div>
+
+	<div class="clear"></div>
+	<!-- 내용 들어 가는 곳 -->
+	<div id="container">
+		<ul class="tabs">
+			<li><a href="#tab1">책소개</a></li>
+			<li><a href="#tab2">저자소개</a></li>
+			<li><a href="#tab3">책목차</a></li>
+			<li><a href="#tab4">출판사서평</a></li>
+			<li><a href="#tab5">추천사</a></li>
+			<li><a href="#tab6">리뷰</a></li>
+		</ul>
+		<div class="tab_container">
+			<div class="tab_content" id="tab1">
+				<h4>책소개</h4>
+				<c:forEach var="image" items="${goods.imageList }"  varStatus="status">
+					<c:if test="${status.count ne 1}">
+						<img src="/down?imageFileName=${goods.goodsId }/${image.fileName}">
+					</c:if>
+				</c:forEach>
+			</div>
+			<div class="tab_content" id="tab2">
+				<h4>저자소개</h4>
+				<p>
+
+			</div>
+			<div class="tab_content" id="tab3">
+				<h4>책목차</h4>
+			</div>
+			<div class="tab_content" id="tab4">
+				<h4>출판사서평</h4>
+			</div>
+			<div class="tab_content" id="tab5">
+				<h4>추천사</h4>
+			</div>
+			<div class="tab_content" id="tab6">
+				<h4>리뷰</h4>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
 <form   action='#'  >
 		<input  type="submit" value="장바구니 보기">
 </form>			

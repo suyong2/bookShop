@@ -34,13 +34,29 @@ created_date, modified_date) values ('리액트를 다루는 기술','김민준'
 
 insert into image_file (GOODS_ID,file_name,REG_ID,file_type,created_date, modified_date) values
 ((SELECT GOODS_ID from goods WHERE GOODS_ISBN='121212'), '무작정 따라가기 홍콩 마카오.jpg',
-'admin','main_image', now(), now());
+'admin','main_image', '2018-10-16', now());
+
+Insert into image_file (GOODS_ID,file_name,REG_ID,file_type,created_date, modified_date) values
+((SELECT GOODS_ID from goods WHERE GOODS_ISBN='121212'),'무작정 따라가기 홍콩 마카오_상세.jpg',
+'admin','detail_image1','2018-10-16', now());
+Insert into image_file (GOODS_ID,file_name,REG_ID,file_type,created_date, modified_date) values
+((SELECT GOODS_ID from goods WHERE GOODS_ISBN='121212'),'detail2.jpg',
+'admin','detail_image2','2018-10-16', now());
+
 
 insert into image_file (GOODS_ID,file_name,REG_ID,file_type,created_date, modified_date) values
 ((SELECT GOODS_ID from goods WHERE GOODS_ISBN='9791186978894'), 'image2.jpg',
-'admin','main_image', now(), now());
+'admin','main_image', '2018-10-17', now());
+
+Insert into image_file (GOODS_ID,file_name,REG_ID,file_type,created_date, modified_date) values
+((SELECT GOODS_ID from goods WHERE GOODS_ISBN='9791186978894'),'모두의 파이선상세이미지1.jpg',
+'admin','detail_image1', '2018-10-17', now());
 
 insert into image_file (GOODS_ID,file_name,REG_ID,file_type,created_date, modified_date) values
 ((SELECT GOODS_ID from goods WHERE GOODS_ISBN='9791160505238'), 'main_react.jpg',
-'admin','main_image', now(), now());
+'admin','main_image', '2018-10-17', now());
+
+Insert into image_file (GOODS_ID,file_name,REG_ID,file_type,created_date, modified_date) values
+((SELECT GOODS_ID from goods WHERE GOODS_ISBN='9791160505238'),'react_detail1.jpg',
+'admin','detail_image1','2018-10-17', now());
 
