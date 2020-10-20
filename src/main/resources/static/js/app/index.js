@@ -62,7 +62,7 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            enctype: 'multipart/form-data', // 필수
+//            contentType : 'multipart/form-data', // 필수
             url: '/api/v1/goods',
             data: formData, // 필수
             processData: false, // 필수
@@ -79,9 +79,10 @@ var main = {
         var formData = new FormData($('#fileForm')[0]);
 
         var id = $('#id').val();
+
         $.ajax({
-            type: 'PUT',
-            enctype: 'multipart/form-data', // 필수
+            type: 'POST',
+//            enctype : 'multipart/form-data', // 필수
             url: '/api/v1/goods/'+id,
             data: formData, // 필수
             processData: false, // 필수

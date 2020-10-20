@@ -325,7 +325,6 @@ function fn_modify_goods(goodsId, attribute){
 							<td>상세 이미지${itemNum.count-1 }</td>
 							<td>
 								<input type="file" name="detail_image${itemNum.count-1 }"  id="detail_image${itemNum.count-1 }"   onchange="readURL(this,'preview${itemNum.count}');" />
-								<%-- <input type="text" id="imageId${itemNum.count }"  value="${item.fileName }" disabled  /> --%>
 								<input type="hidden"  name="imageId" value="${item.imageId }"  />
 								<br>
 							</td>
@@ -350,7 +349,6 @@ function fn_modify_goods(goodsId, attribute){
 					<tr align="center">
 						<td colspan="3">
 							<div id="d_file">
-								<%-- <img  id="preview${itemNum.count }"   width=200 height=200 src="${contextPath}/down.do?goodsId=${item.goodsId}&fileName=${item.fileName}" /> --%>
 							</div>
 						</td>
 					</tr>

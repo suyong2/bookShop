@@ -81,9 +81,9 @@ public class GoodsApiControllerTest {
     public void prepare() {
         goodsRepository.deleteAll();
         mvc = MockMvcBuilders.webAppContextSetup(ctx)
-            .addFilters(new CharacterEncodingFilter("UTF-8", true))  // 한글 깨짐 처리
-            .apply(springSecurity())
-            .build();
+                .addFilters(new CharacterEncodingFilter("UTF-8", true))  // 한글 깨짐 처리
+                .apply(springSecurity())
+                .build();
     }
 
     @After
@@ -127,18 +127,17 @@ public class GoodsApiControllerTest {
         //given
         String goodsTitle = "Hello";
         String goodsWriter = "world";
-        String[] fileNames = {"BoyWho.png", "캡처한것.PNG"};
+        String[] fileNames = {"dummy.jpeg", "dummy2.jpeg"};
 
-        FileInputStream fis = new FileInputStream(fileNames[0]);
-//        FileInputStream fis2 = new FileInputStream(fileNames[1]);
-
-        MockMultipartFile file = new MockMultipartFile("main_image", fis);
-//        MockMultipartFile file2 = new MockMultipartFile("detail_image0", fis2);
+        MockMultipartFile file = new MockMultipartFile("main_image", fileNames[0],
+                "image/jpeg", "Some dataset...".getBytes());
+        MockMultipartFile file2 = new MockMultipartFile("main_image", fileNames[0],
+                "image/jpeg", "Some dataset...".getBytes());
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/api/v1/goods")
                         .file(file)
-//                        .file(file2)
-                        ;
+                        .file(file2)
+                ;
         builder.with(new RequestPostProcessor() {
             @Override
             public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
@@ -173,12 +172,12 @@ public class GoodsApiControllerTest {
                 .goodsTitle("Hello")
                 .goodsWriter("world")
                 .build();
-//        for (int i=0; i<3; i++){
-//            ImageFile img = ImageFile.builder()
-//                    .fileName("testFile"+i)
-//                    .build();
-//            img.setGoods(goods);
-//        }
+        for (int i=0; i<3; i++){
+            ImageFile img = ImageFile.builder()
+                    .fileName("testFile"+i)
+                    .build();
+            img.setGoods(goods);
+        }
         Goods savedGoods= goodsRepository.save(goods);
 
         Long updateId = savedGoods.getGoodsId();
@@ -186,15 +185,19 @@ public class GoodsApiControllerTest {
         String expectedWriter = "world2";
         System.out.println("/api/v1/goods/"+updateId);
 
-        MockMultipartFile file = new MockMultipartFile("data", "dummy.csv",
-                "text/plain", "Some dataset...".getBytes());
+        String[] fileNames = {"dummy.jpeg", "dummy2.jpeg"};
+
+        MockMultipartFile file = new MockMultipartFile("main_image", fileNames[0],
+                "image/jpeg", "Some dataset...".getBytes());
+        MockMultipartFile file2 = new MockMultipartFile("main_image", fileNames[0],
+                "image/jpeg", "Some dataset...".getBytes());
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/api/v1/goods/"+updateId)
-                        .file(file);
+                        .file(file).file(file2);
         builder.with(new RequestPostProcessor() {
             @Override
             public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
-                request.setMethod("PUT");
+                request.setMethod("POST");
                 return request;
             }
         });
@@ -209,41 +212,15 @@ public class GoodsApiControllerTest {
 //                .andExpect(content().string("데일의 블로그입니다. dale"))
                 .andDo(print());
 
-//        String expectedFileName = "updatedTestFile";
-//        GoodsUpdateRequestDto requestDto = GoodsUpdateRequestDto.builder()
-//                .goodsTitle(expectedTitle)
-//                .goodsWriter(expectedWriter)
-//                .build();
-//
-//        List<ImagesSaveRequestDto> fileList= new ArrayList<>();
-//        for (int i=0; i<3; i++){
-//            ImagesSaveRequestDto img = ImagesSaveRequestDto.builder()
-//                    .fileName(expectedFileName+i)
-//                    .build();
-//            fileList.add(img);
-//        }
-//        requestDto.setImageList(fileList);
-//
-//        String url = "http://localhost:" + port + "/api/v1/goods/" + updateId;
-//
-//        HttpEntity<GoodsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
-//
-//        //when
-//        ResponseEntity<Long> responseEntity = restTemplate.exchange(url,
-//                HttpMethod.PUT, requestEntity, Long.class);
-//
-//        //then
-//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-//        assertThat(responseEntity.getBody()).isGreaterThan(0L);
 //
         List<Goods> all = goodsRepository.findAll();
-//        List<ImageFile> imageList = imagesRepository.findAll();
+        List<ImageFile> imageList = imagesRepository.findAll();
         assertThat(all.get(0).getGoodsTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getGoodsWriter()).isEqualTo(expectedWriter);
 
-//        for (int i=0;i<imageList.size();i++){
-//            ImageFile image = imageList.get(i);
-//            assertThat(image.getFileName()).isEqualTo(expectedFileName+i);
-//        }
+        for (int i=0;i<imageList.size();i++){
+            ImageFile image = imageList.get(i);
+            assertThat(image.getFileName()).isEqualTo(fileNames[i]);
+        }
     }
 }

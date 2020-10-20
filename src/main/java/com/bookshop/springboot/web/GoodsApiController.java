@@ -83,7 +83,7 @@ public class GoodsApiController extends BaseController {
         return goodsId;
     }
 
-    @PutMapping("/api/v1/goods/{id}")
+    @PostMapping("/api/v1/goods/{id}")
     public Long update(MultipartHttpServletRequest request, @PathVariable Long id,
                        GoodsUpdateRequestDto requestDto) throws Exception {
         System.out.println("update시 : "+requestDto);
