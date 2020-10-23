@@ -5,7 +5,6 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
-        maven { url 'https://repo.spring.io/libs-milestone'}
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -24,9 +23,7 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     jcenter()
-    maven { url 'https://repo.spring.io/libs-milestone'}
 }
-
 configurations {
     developmentOnly
     runtimeClasspath {
@@ -51,11 +48,8 @@ dependencies {
     compile('org.mariadb.jdbc:mariadb-java-client')
     testCompile("org.springframework.security:spring-security-test")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    compile('org.springframework.cloud:spring-cloud-starter-aws')
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-bom', version: '1.11.880', ext: 'pom'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.880'
+
 }
 
-dependencyManagement {
-    imports {
-        mavenBom 'org.springframework.cloud:spring-cloud-aws:2.0.0.RC2'
-    }
-}

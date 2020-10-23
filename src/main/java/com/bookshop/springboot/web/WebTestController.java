@@ -28,10 +28,14 @@ public class WebTestController {
 
     private final S3Uploader s3Uploader;
 
-    private final AmazonS3 s3Client;
-
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
+
+    @Value("${cloud.aws.credentials.accessKey}")
+    private String accessKey;
+
+    @Value("${cloud.aws.credentials.secretKey}")
+    private String secretKey;
 
     @GetMapping("/test/file")
     public String index() {
@@ -47,13 +51,21 @@ public class WebTestController {
     @GetMapping("/down")
     public void download(@RequestParam("imageFileName") String imageFileName,
                          HttpServletResponse response)throws Exception {
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey,
+                secretKey);
+
+        AmazonS3 s3 = AmazonS3ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+                .withRegion(Regions.AP_NORTHEAST_2)
+                .build();
         try {
             String key_name = "shopping/file_repo/"+imageFileName;
             OutputStream out = response.getOutputStream();
             File file = new File(key_name);
             response.setHeader("Cache-Control", "no-cache");
             response.addHeader("Content-disposition", "attachment; fileName=" + imageFileName);
-            S3Object o = s3Client.getObject(bucket, key_name);
+//            S3Object o = s3Client.getObject(bucket, key_name);
+            S3Object o = s3.getObject(bucket, key_name);
             S3ObjectInputStream s3is = o.getObjectContent();
             int read_len = 0;
             byte[] read_buf = new byte[1024];
