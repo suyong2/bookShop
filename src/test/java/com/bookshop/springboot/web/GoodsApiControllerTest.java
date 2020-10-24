@@ -127,16 +127,16 @@ public class GoodsApiControllerTest {
         //given
         String goodsTitle = "Hello";
         String goodsWriter = "world";
-        String[] fileNames = {"dummy.jpeg", "dummy2.jpeg"};
+//        String[] fileNames = {"dummy.jpeg", "dummy2.jpeg"};
 
-        MockMultipartFile file = new MockMultipartFile("main_image", fileNames[0],
-                "image/jpeg", "Some dataset...".getBytes());
-        MockMultipartFile file2 = new MockMultipartFile("main_image", fileNames[0],
-                "image/jpeg", "Some dataset...".getBytes());
+//        MockMultipartFile file = new MockMultipartFile("main_image", fileNames[0],
+//                "image/jpeg", "Some dataset...".getBytes());
+//        MockMultipartFile file2 = new MockMultipartFile("main_image", fileNames[0],
+//                "image/jpeg", "Some dataset...".getBytes());
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/api/v1/goods")
-                        .file(file)
-                        .file(file2)
+//                        .file(file)
+//                        .file(file2)
                 ;
         builder.with(new RequestPostProcessor() {
             @Override
@@ -155,13 +155,13 @@ public class GoodsApiControllerTest {
 //                .andExpect(content().string("데일의 블로그입니다. dale"))
                 .andDo(print());
         List<Goods> all = goodsRepository.findAll();
-        List<ImageFile> imageList = imagesRepository.findAllOrdered();
+//        List<ImageFile> imageList = imagesRepository.findAllOrdered();
         assertThat(all.get(0).getGoodsTitle()).isEqualTo(goodsTitle);
         assertThat(all.get(0).getGoodsWriter()).isEqualTo(goodsWriter);
-        for (int i=0;i<imageList.size();i++){
-            ImageFile image = imageList.get(i);
-            assertThat(image.getFileName()).isEqualTo(fileNames[i]);
-        }
+//        for (int i=0;i<imageList.size();i++){
+//            ImageFile image = imageList.get(i);
+//            assertThat(image.getFileName()).isEqualTo(fileNames[i]);
+//        }
     }
 
     @Test
@@ -185,15 +185,15 @@ public class GoodsApiControllerTest {
         String expectedWriter = "world2";
         System.out.println("/api/v1/goods/"+updateId);
 
-        String[] fileNames = {"dummy.jpeg", "dummy2.jpeg"};
-
-        MockMultipartFile file = new MockMultipartFile("main_image", fileNames[0],
-                "image/jpeg", "Some dataset...".getBytes());
-        MockMultipartFile file2 = new MockMultipartFile("main_image", fileNames[0],
-                "image/jpeg", "Some dataset...".getBytes());
+//        String[] fileNames = {"dummy.jpeg", "dummy2.jpeg"};
+//
+//        MockMultipartFile file = new MockMultipartFile("main_image", fileNames[0],
+//                "image/jpeg", "Some dataset...".getBytes());
+//        MockMultipartFile file2 = new MockMultipartFile("main_image", fileNames[0],
+//                "image/jpeg", "Some dataset...".getBytes());
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/api/v1/goods/"+updateId)
-                        .file(file).file(file2)
+//                        .file(file).file(file2)
                 ;
         builder.with(new RequestPostProcessor() {
             @Override
@@ -215,13 +215,13 @@ public class GoodsApiControllerTest {
 
 //
         List<Goods> all = goodsRepository.findAll();
-        List<ImageFile> imageList = imagesRepository.findAll();
+//        List<ImageFile> imageList = imagesRepository.findAll();
         assertThat(all.get(0).getGoodsTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getGoodsWriter()).isEqualTo(expectedWriter);
 
-        for (int i=0;i<imageList.size();i++){
-            ImageFile image = imageList.get(i);
-            assertThat(image.getFileName()).isEqualTo(fileNames[i]);
-        }
+//        for (int i=0;i<imageList.size();i++){
+//            ImageFile image = imageList.get(i);
+//            assertThat(image.getFileName()).isEqualTo(fileNames[i]);
+//        }
     }
 }
